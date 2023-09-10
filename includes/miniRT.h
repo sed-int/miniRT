@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/10 17:29:04 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/10 20:40:20 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,28 @@
 # define WIDTH	1280
 # define HEIGHT	720
 
+
 typedef struct s_vec3
 {
-	double	x;
-	double	y;
-	double	z;
+	union 
+	{
+		struct
+		{
+			double x;
+			double y;
+			double z;
+		};
+		struct
+		{
+			double r;
+			double g;
+			double b;
+		};
+		double vec[3];
+	};
 }	t_vec3;
 
+typedef t_vec3 t_light;
 typedef struct s_img
 {
 	void	*img;
@@ -43,7 +58,7 @@ typedef struct s_hit
 {
 	double	d;		// 광선의 시작 부터 충돌 지점까지의 거리
 	t_vec3	point;	// 충돌 위치
-	t_vec3	normal;	// 충돌 위치에서 평명의 수직 벡터 (unit vector)
+	t_vec3	normal;	// 충돌 위치에서 평면의 수직 벡터 (unit vector)
 }	t_hit;
 
 typedef struct s_ray
@@ -62,10 +77,12 @@ typedef struct s_sphere
 	t_vec3	color;
 }	t_sphere;
 
-typedef struct s_light
+typedef struct s_env
 {
-	t_vec3	pos;
-}	t_light;
+	void	*mlx;
+	void	*win;
+	t_img	img;
+}	t_env;
 
 /* vec3 */
 void	print_vec3(t_vec3 v);

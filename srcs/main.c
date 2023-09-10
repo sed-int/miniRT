@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/10 17:28:41 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/10 20:40:38 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ unsigned int get_rgb(int r, int g, int b)
 
 t_hit	intersection_ray_collison(t_ray ray, t_sphere sphere)
 {
-	t_hit	hit = {-1.0, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}};
+	t_hit	hit;
+	
+	hit.d = -1.0;
 	t_vec3	tmp;
 	double	b;
 	double	c;
@@ -59,24 +61,18 @@ t_hit	intersection_ray_collison(t_ray ray, t_sphere sphere)
 	b = dot_vec3(ray.dir, tmp);
 	c = dot_vec3(tmp, tmp) - sphere.radius * sphere.radius;
 	nabla = b * b - c;
-	if (nabla > 0.0)
+	if (nabla >= 0.0)
 	{
 		double d1 = -b + sqrtf(nabla);
 		double d2 = -b - sqrtf(nabla);
-		hit.d = ((d1 < d2 ) * d1) + ((d1 > d2) * d2);
-		hit.point = add_vec3(ray.start, scale_vec3(ray.dir, hit.d));
-		hit.normal = unit_vec3(sub_vec3(hit.point, sphere.center));
-	}
-	else if (nabla == 0.0)
-	{
-		hit.d = -b;
+		hit.d = ((d1 < d2 ) * d1) + ((d1 >= d2) * d2);
 		hit.point = add_vec3(ray.start, scale_vec3(ray.dir, hit.d));
 		hit.normal = unit_vec3(sub_vec3(hit.point, sphere.center));
 	}
 	return (hit);
 }
 
-int	trace_ray(t_ray ray, t_sphere sphere, t_light light)
+int	trace_ray(t_ray ray, t_sphere sphere, t_light light_pos)
 {
 	t_hit	hit;
 
@@ -85,7 +81,7 @@ int	trace_ray(t_ray ray, t_sphere sphere, t_light light)
 		return (0);
 	else
 	{
-		t_vec3	dir2light = unit_vec3(sub_vec3(light.pos, hit.point));
+		t_vec3	dir2light = unit_vec3(sub_vec3(light_pos, hit.point));
 		double	diff = dot_vec3(dir2light, hit.normal);
 
 		if (diff < 0.0)
@@ -98,40 +94,50 @@ int	trace_ray(t_ray ray, t_sphere sphere, t_light light)
 		spec = powf(spec, 9.0);
 		sphere.specular = scale_vec3(sphere.specular, spec * 0.8);
 		sphere.color = add_vec3(sphere.diffuse, sphere.specular);
-		return (get_rgb(sphere.color.x, sphere.color.y, sphere.color.z));
+		return (get_rgb(sphere.color.r, sphere.color.g, sphere.color.b));
 	}
-	// return (get_rgb(sphere.color.x * hit.d, sphere.color.y * hit.d, sphere.color.z * hit.d));
+}
+
+t_sphere	init_sphere()
+{
+	t_sphere sphere;
+
+	sphere.center = set_vec3(0.0, 0.0, 0.5);
+	sphere.radius = 0.4;
+	sphere.amb = set_vec3(0.0, 0.0, 0.0);
+	sphere.diffuse = set_vec3(0.0, 0.0, 255.0);
+	sphere.specular = set_vec3(255.0, 255.0, 255.0);
+	sphere.color = set_vec3(0.0, 0.0, 0.0);
+	return (sphere);
+}
+
+int close_win(t_env *env)
+{
+	mlx_destroy_window(env->mlx, env->win);
+	exit(0);
+	return (0);
 }
 
 int	main()
 {
-	void		*mlx;
-	void		*win;
-	t_img		img;
-	t_sphere sphere = {
-		{0.0, 0.0, 0.5},
-		0.4,
-		{0.0, 0.0, 0.0},
-		{0.0, 0.0, 255.0},
-		{255.0, 255.0, 255.0},
-		{0.0, 0.0, 0.0},
-	};
+	t_env	env;
+	t_sphere sphere = init_sphere();
 	t_ray		ray;
-	t_light		light = {{1.0, 1.0, -0.8}};
-
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, WIDTH, HEIGHT, "miniRT");
-	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	t_light		light = set_vec3(1.0, 1.0, -0.8);
+	env.mlx = mlx_init();
+	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "miniRT");
+	env.img.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
+	env.img.addr = mlx_get_data_addr(env.img.img, &env.img.bits_per_pixel, &env.img.line_length, &env.img.endian);
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
 			ray.start = screen2word(x, y);
 			ray.dir = set_vec3(0.0, 0.0, 1.0);
-			put_pixel(&img, x, y, trace_ray(ray, sphere, light));
+			put_pixel(&env.img, x, y, trace_ray(ray, sphere, light));
 		}
 	}
-	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(env.mlx, env.win, env.img.img, 0, 0);
+	mlx_hook(env.win, 17, 1L << 5, close_win, &env);
+	mlx_loop(env.mlx);
 }

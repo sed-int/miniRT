@@ -19,7 +19,7 @@ SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 
 
-INC			= -Iincludes
+INC			= -Iincludes -Imlx
 NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
@@ -35,7 +35,7 @@ $(NAME):	$(OBJ)
 	@echo $(GREEN)"miniRT made" $(EOC)
 
 %.o: 		%.c
-	@$(CC) $(CFLAGS) -Imlx $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
 	@$(RM) mlx/*.o

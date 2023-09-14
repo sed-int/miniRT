@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/10 20:40:20 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/11 11:05:26 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct s_vec3
 {
-	union 
+	union
 	{
 		struct
 		{
@@ -40,11 +40,12 @@ typedef struct s_vec3
 			double g;
 			double b;
 		};
-		double vec[3];
+		double pos[3];
 	};
 }	t_vec3;
 
 typedef t_vec3 t_light;
+
 typedef struct s_img
 {
 	void	*img;
@@ -54,13 +55,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_hit
-{
-	double	d;		// 광선의 시작 부터 충돌 지점까지의 거리
-	t_vec3	point;	// 충돌 위치
-	t_vec3	normal;	// 충돌 위치에서 평면의 수직 벡터 (unit vector)
-}	t_hit;
-
 typedef struct s_ray
 {
 	t_vec3	start;	// ray의 시작 위치
@@ -69,13 +63,34 @@ typedef struct s_ray
 
 typedef struct s_sphere
 {
-	t_vec3	center;
-	double	radius;
-	t_vec3	amb;
-	t_vec3	diffuse;
-	t_vec3	specular;
-	t_vec3	color;
+	t_vec3  center;
+	double  radius;
 }	t_sphere;
+
+typedef struct s_plane
+{
+    t_vec3	point;
+    t_vec3  normal;
+}	t_plane;
+
+typedef struct s_hit
+{
+    double	d;		// 광선의 시작 부터 충돌 지점까지의 거리
+    t_vec3	point;	// 충돌 위치
+    t_vec3	normal;	// 충돌 위치에서 평면의 수직 벡터 (unit vector)
+    struct s_object    *obj; // 어떤 object에 충돌 했는지
+}	t_hit;
+
+typedef struct s_object
+{
+    t_vec3	amb;
+    t_vec3	diffuse;
+    t_vec3	specular;
+    t_vec3	color;
+    t_plane plane;
+    t_sphere sphere;
+    t_hit   (*check_ray_collison)(t_ray, struct s_object);
+}   t_object;
 
 typedef struct s_env
 {

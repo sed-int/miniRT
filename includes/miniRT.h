@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/11 11:05:26 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/16 15:17:56 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,24 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+# include <fcntl.h>
 // # include "vec3.h"
 # include "mlx.h"
+# include "libft.h"
+# include "get_next_line.h"
 
 # define WIDTH	1280
 # define HEIGHT	720
 
+enum	e_type
+{
+	AMBIENT,
+	CAMERA,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	CYLINDER
+};
 
 typedef struct s_vec3
 {

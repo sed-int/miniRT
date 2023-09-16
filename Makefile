@@ -14,12 +14,11 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCDIR		=	./srcs
-SRC			= main.c vec3.c ray.c
+SRC			= main.c vec3.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 
-
-INC			= -Iincludes -Imlx
+INC			= -Iincludes -Imlx -Ilib/libft -Ilib/gnl
 NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
@@ -30,6 +29,8 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(MAKE) -C ./mlx
+	@$(MAKE) -C ./lib/gnl
+	@$(MAKE) -C ./lib/libft
 	@echo $(GREEN)"mlx made" $(EOC)
 	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME)
 	@echo $(GREEN)"miniRT made" $(EOC)
@@ -39,12 +40,14 @@ $(NAME):	$(OBJ)
 
 clean:
 	@$(RM) mlx/*.o
-	@echo $(GREEN)"mlx cleaned" $(EOC)
+	@$(RM) ./lib/libft/*.o
+	@$(RM) ./lib/gnl/*.o
+	@echo $(GREEN)"lib cleaned" $(EOC)
 	@$(RM) $(OBJ) $(BOBJ)
 	@echo $(GREEN)"miniRT cleaned" $(EOC)
 
 fclean:		clean
-	@$(RM) $(NAME) $(BNAME)
+	@$(RM) $(NAME)
 	@echo $(GREEN)"miniRT fcleaned" $(EOC)
 
 re:			fclean all

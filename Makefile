@@ -13,8 +13,10 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 #-------------------------------------------
 
-SRCDIR		=	./srcs
-SRC			= main.c vec3.c
+LIBDIR		= ./lib
+
+SRCDIR		= ./srcs
+SRC			= main.c vec3.c parsing.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 
@@ -22,26 +24,26 @@ INC			= -Iincludes -Imlx -Ilib/libft -Ilib/gnl
 NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
-MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+LIBFLAGS	= -L$(LIBDIR)/libft -L$(LIBDIR)/gnl -L$(LIBDIR)/mlx -lft -lgnl -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(MAKE) -C ./mlx
-	@$(MAKE) -C ./lib/gnl
-	@$(MAKE) -C ./lib/libft
+	@$(MAKE) -C ./$(LIBDIR)/mlx
+	@$(MAKE) -C ./$(LIBDIR)/gnl
+	@$(MAKE) -C ./$(LIBDIR)/libft
 	@echo $(GREEN)"mlx made" $(EOC)
-	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME)
 	@echo $(GREEN)"miniRT made" $(EOC)
 
 %.o: 		%.c
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	@$(RM) mlx/*.o
-	@$(RM) ./lib/libft/*.o
-	@$(RM) ./lib/gnl/*.o
+	@$(RM) ./$(LIBDIR)mlx/*.o
+	@$(RM) ./$(LIBDIR)/libft/*.o
+	@$(RM) ./$(LIBDIR)/gnl/*.o
 	@echo $(GREEN)"lib cleaned" $(EOC)
 	@$(RM) $(OBJ) $(BOBJ)
 	@echo $(GREEN)"miniRT cleaned" $(EOC)

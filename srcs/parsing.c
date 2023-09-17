@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/16 16:11:57 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/16 18:55:45 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ void	nl_to_null(char *line)
 		*nl = '\0';
 }
 
-int	parse_input(char *filename, void *env)
-{
-	int		fd;
-	char	*line;
-	char	**splitted;
-	int		count[3];
+// int	parse_input(char *filename, void *env)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	char	**splitted;
+// 	int		count[3];
 
-	init_count(count);
-	fd = open(filename, O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		nl_to_null(line);
-		splitted = ft_split(line, ' ');
-		if (splitted)
-			check_type(splitted[0], count);
-	}
-}
+// 	init_count(count);
+// 	fd = open(filename, O_RDONLY);
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (!line)
+// 			break ;
+// 		nl_to_null(line);
+// 		splitted = ft_split(line, ' ');
+// 		if (splitted)
+// 			check_type(splitted[0], count);
+// 	}
+// }

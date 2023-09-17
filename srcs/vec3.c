@@ -6,11 +6,13 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:05:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/10 14:25:49 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/16 18:54:46 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "vec3.h"
+#include <stdio.h>
+#include <math.h>
 
 void	print_vec3(t_vec3 v)
 {

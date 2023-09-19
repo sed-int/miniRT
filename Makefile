@@ -20,18 +20,18 @@ SRC			= main.c vec3.c parsing.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 
-INC			= -Iincludes -Imlx -Ilib/libft -Ilib/gnl
+INC			= -Iincludes -Ilib/mlx -Ilib/libft -Ilib/get_next_line
 NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
-LIBFLAGS	= -L$(LIBDIR)/libft -L$(LIBDIR)/gnl -L$(LIBDIR)/mlx -lft -lgnl -lmlx -framework OpenGL -framework AppKit
+LIBFLAGS	= -L$(LIBDIR)/libft -L$(LIBDIR)/get_next_line -L$(LIBDIR)/mlx -lft -lgnl -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(MAKE) -C ./$(LIBDIR)/mlx
-	@$(MAKE) -C ./$(LIBDIR)/gnl
+	@$(MAKE) -C ./$(LIBDIR)/get_next_line
 	@$(MAKE) -C ./$(LIBDIR)/libft
 	@echo $(GREEN)"mlx made" $(EOC)
 	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME)
@@ -43,7 +43,7 @@ $(NAME):	$(OBJ)
 clean:
 	@$(RM) ./$(LIBDIR)mlx/*.o
 	@$(RM) ./$(LIBDIR)/libft/*.o
-	@$(RM) ./$(LIBDIR)/gnl/*.o
+	@$(RM) ./$(LIBDIR)/get_next_line/*.o
 	@echo $(GREEN)"lib cleaned" $(EOC)
 	@$(RM) $(OBJ) $(BOBJ)
 	@echo $(GREEN)"miniRT cleaned" $(EOC)

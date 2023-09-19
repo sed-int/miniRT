@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:52 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/19 17:31:14 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,33 @@ static t_hit   find_closest_collisun(t_ray ray, t_object *objects)
 	t_hit	hit;
 
 	closest_hit.d = -1.0;
-	for (int i = 0; i < 1; i++) {
-		hit = objects[i].check_ray_collison(ray, objects[i]);
+	while (objects)
+	{
+		hit = objects->check_ray_collison(ray, *objects);
 		if (hit.d >= 0.0 && hit.d < closest_d)
 		{
 			closest_d = hit.d;
 			closest_hit = hit;
-			closest_hit.obj = &objects[i];
+			closest_hit.obj = objects;
 		}
+		objects = objects->next;
+	}
+
+	for (int i = 0; i < 3; i++) {
+
 	}
 	return (closest_hit);
+}
+
+static unsigned int	get_rgb(int r, int g, int b)
+{
+	if (r > 0xFF)
+		r = 0xFF;
+	if (g > 0xFF)
+		g = 0xFF;
+	if (b > 0xFF)
+		b = 0xFF;
+	return (0x00 << 24 | r << 16 | g << 8 | b);
 }
 
 int	trace_ray(t_ray ray, t_object *objects, t_light light_pos)

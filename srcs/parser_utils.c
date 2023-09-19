@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 18:49:47 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 16:28:36 by phan             ###   ########.fr       */
+/*   Created: 2023/09/19 16:50:22 by phan              #+#    #+#             */
+/*   Updated: 2023/09/19 17:27:33 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+# include "miniRT.h"
 
-# include "vec3.h"
-
-typedef struct s_ray
+t_object	*new_obj()
 {
-	t_vec3	start; // ray의 시작 위치
-	t_vec3	dir;	  // ray의 방향 벡터 (unit vector)
-}	t_ray;
+	t_object	*tmp;
 
-#endif
+	tmp = (t_object *)malloc(sizeof(t_object));
+	if (!tmp)
+		exit(1);
+	tmp->next = NULL;
+	return (tmp);
+}
+
+void	obj_lstadd_back(t_object **lst, t_object *new)
+{
+	t_object	*tmp;
+
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+}

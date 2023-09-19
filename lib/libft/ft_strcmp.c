@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 18:49:47 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:22 by phan             ###   ########.fr       */
+/*   Created: 2023/09/19 16:01:29 by phan              #+#    #+#             */
+/*   Updated: 2023/09/19 16:01:39 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#include "libft.h"
 
-# include "vec3.h"
-
-typedef struct s_ray
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_vec3	start; // ray의 시작 위치
-	t_vec3	dir;	  // ray의 방향 벡터 (unit vector)
-}	t_ray;
+	int				i;
+	unsigned char	*us1;
+	unsigned char	*us2;
 
-int	trace_ray(t_ray ray, t_object *objects, t_light light_pos);
-
-#endif
+	i = 0;
+	us1 = (unsigned char *)s1;
+	us2 = (unsigned char *)s2;
+	while (us1[i] || us2[i])
+	{
+		if (us1[i] - us2[i])
+			return (us1[i] - us2[i]);
+		i++;
+	}
+	return (0);
+}

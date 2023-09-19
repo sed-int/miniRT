@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 14:41:57 by hyunminjo        ###   ########.fr       */
+/*   Updated: 2023/09/19 15:18:37 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,21 @@ typedef struct s_object
 	t_hit		(*check_ray_collison)(t_ray, struct s_object);
 }	t_object;
 
-typedef struct	s_rt
-{
-	t_amb	amb;
-	t_cam	cam;
-	t_lgt	light;
-	t_object *objs;
-}	t_rt;
+// typedef struct	s_rt
+// {
+// 	t_amb	amb;
+// 	t_cam	cam;
+// 	t_lgt	light;
+// 	t_object *objs;
+// }	t_rt;
+
+// sphere
+t_hit	check_ray_collison_sphere(t_ray ray, t_object obj);
+
+// plane
+t_hit	check_ray_collison_plane(t_ray ray, t_object obj);
+
+// cylinder
+t_hit	check_ray_collison_cylinder(t_ray ray, t_object obj);
 
 #endif

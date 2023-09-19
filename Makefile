@@ -16,7 +16,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 LIBDIR		= ./lib
 
 SRCDIR		= ./srcs
-SRC			= main.c vec3.c parsing.c
+SRC			= main.c vec3.c collison_cy.c collison_pl.c collison_sp.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 15:12:06 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/19 17:09:17 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,40 @@ typedef struct s_env
 	void	*win;
 	t_img	img;
 }	t_env;
+
+typedef struct s_amb
+{
+	double	ratio;
+	t_vec3	color;
+}	t_amb;
+
+typedef struct s_cam
+{
+	t_vec3	point;
+	t_vec3	dir;
+}	t_cam;
+
+typedef struct s_lgt
+{
+	t_vec3	point;
+	double	ratio;
+	t_vec3	color;
+}	t_lgt;
+
+typedef struct	s_rt
+{
+	t_amb	amb;
+	t_cam	cam;
+	t_lgt	light;
+	t_object *objs;
+}	t_rt;
+
+int	trace_ray(t_ray ray, t_object *objects, t_light light_pos);
+
+// parse
+void	parse_input(char *filename, void *env);
+void	set_value(int type, char **args, t_rt *rt);
+t_object	*new_obj();
+void	obj_lstadd_back(t_object **lst, t_object *new);
 
 #endif

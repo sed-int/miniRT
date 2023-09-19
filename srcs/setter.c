@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/17 17:21:21 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/19 17:44:23 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,51 @@ void	set_dir(char *arg, t_vec3 *dir)
 	char	**splitted;
 
 	splitted = ft_split(arg, ',');
-	if (split_len(splitted) != 3)
-		exit(1);
-	dir->x = atof(arg[0]);
-	dir->y = atof(arg[1]);
-	dir->z = atof(arg[2]);
-	if (x > 1 || x < -1 || x > 1 || x < -1 || z > 1 || z < -1)
-		exit(1);
+	// if (split_len(splitted) != 3)
+	// 	exit(1);
+	dir->x = atof(splitted[0]);
+	dir->y = atof(splitted[1]);
+	dir->z = atof(splitted[2]);
+	if (dir->x > 1 || dir->x < -1 || \
+		dir->y > 1 || dir->y < -1 || \
+		dir->z > 1 || dir->z < -1)
+		{
+			printf("d\n");
+			exit(1);
+		}
 }
 
 void	set_ratio(char *arg, double	*ratio)
 {
-	ratio = atof(arg);
-	if (ratio < 0 || ratio > 1)
-		exit(1);
+	*ratio = atof(arg);
+	if (*ratio < 0 || *ratio > 1)
+		{
+			printf("ra\n");
+			exit(1);
+		}
 }
 
 void	set_color(char *arg, t_vec3 *color)
 {
 	char	**splitted;
 
+	printf("color set :%s\n", arg);
 	splitted = ft_split(arg, ',');
-	if (split_len(splitted) != 3)
-		exit(1);
-	color->r = atof(arg[0]);
-	color->g = atof(arg[1]);
-	color->b = atof(arg[2]);
-	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
-		exit(1);
+	// if (split_len(splitted) != 3)
+	// 	exit(1);
+	color->r = atof(splitted[0]);
+	printf("1\n");
+	color->g = atof(splitted[1]);
+	printf("2\n");
+	color->b = atof(splitted[2]);
+	printf("3\n");
+	if (color->r > 255 || color->r < 0 \
+		|| color->g > 255 || color->g < 0 \
+		|| color->b > 255 || color->b < 0)
+		{
+			printf("color\n");
+			exit(1);
+		}
 }
 
 void	set_point(char *arg, t_vec3 *point)
@@ -52,49 +69,66 @@ void	set_point(char *arg, t_vec3 *point)
 	char	**splitted;
 
 	splitted = ft_split(arg, ',');
-	if (split_len(splitted) != 3)
-		exit(1);
-	point->x = atof(arg[0]);
-	point->y = atof(arg[1]);
-	point->z = atof(arg[2]);
+	// if (split_len(splitted) != 3)
+	// 	exit(1);
+	point->x = atof(splitted[0]);
+	point->y = atof(splitted[1]);
+	point->z = atof(splitted[2]);
 }
 
 void	set_value(int type, char **args, t_rt *rt)
 {
+	t_object	*new;
+
 	if (type == AMBIENT)
 	{
-		set_ratio(args[0], &rt->amb.ratio);
-		set_color(args[1], &rt->amb.color);
+		set_ratio(args[1], &(rt->amb.ratio));
+		set_color(args[2], &(rt->amb.color));
 	}
 	else if (type == CAMERA)
 	{
-		set_point(args[0], &rt->cam.point);
-		set_dir(args[1], &rt->cam.dir);
+		set_point(args[1], &rt->cam.point);
+		set_dir(args[2], &rt->cam.dir);
 	}
 	else if (type == LIGHT)
 	{
-		set_point(args[0], &rt->light.point);
-		set_ratio(args[1], &rt->light.ratio);
-		set_color(args[2], &rt->light.color);
+		set_point(args[1], &rt->light.point);
+		set_ratio(args[2], &rt->light.ratio);
+		set_color(args[3], &rt->light.color);
 	}
 	else if (type == SPHERE)
 	{
-		set_point(args[0], &rt->objs[SPHERE].sphere.center);
-		rt->objs[SPHERE].sphere.radius = ft_atof(args[1]) / 2;
-		set_color(args[1], &rt->objs[SPHERE].diffuse);
+		new = new_obj();
+		set_point(args[1], &new->sphere.center);
+		new->sphere.radius = atof(args[2]) / 2;
+		set_color(args[3], &new->diffuse);
+		new->amb = scale_vec3(new->diffuse, 0.2);
+		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
+		new->check_ray_collison = check_ray_collison_sphere;
+		obj_lstadd_back(&(rt->objs), new);
 	}
 	else if (type == PLANE)
 	{
-		set_point(args[0], &rt->objs[PLANE].plane.point);
-		set_dir(args[1], &rt->objs[PLANE].plane.normal);
-		set_color(args[2], &rt->objs[PLANE].diffuse);
+		new = new_obj();
+		set_point(args[1], &new->plane.point);
+		set_dir(args[2], &new->plane.normal);
+		set_color(args[3], &new->diffuse);
+		new->amb = scale_vec3(new->diffuse, 0.2);
+		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
+		new->check_ray_collison = check_ray_collison_plane;
+		obj_lstadd_back(&(rt->objs), new);
 	}
 	else if (type == CYLINDER)
 	{
-		set_point(args[0], &rt->objs[CYLINDER].cylinder.center);
-		set_dir(args[1], &rt->objs[CYLINDER].cylinder.normal);
-		rt->objs[CYLINDER].cylinder.diameter = ft_atof(args[2]);
-		rt->objs[CYLINDER].cylinder.height = ft_atof(args[3]);
-		set_color(args[4], &rt->objs[CYLINDER].diffuse);
+		new = new_obj();
+		set_point(args[1], &new->cylinder.center);
+		set_dir(args[2], &new->cylinder.normal);
+		new->cylinder.diameter = atof(args[3]);
+		new->cylinder.height = atof(args[4]);
+		set_color(args[5], &new->diffuse);
+		new->amb = scale_vec3(new->diffuse, 0.2);
+		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
+		new->check_ray_collison = check_ray_collison_cylinder;
+		obj_lstadd_back(&(rt->objs), new);
 	}
 }

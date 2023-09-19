@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 16:04:02 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/19 17:48:11 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,6 @@ t_vec3	screen2word(int x, int y)
 	exchange_point.y = 1 - y_scale * y;
 	exchange_point.z = 0.0;
 	return (exchange_point);
-}
-
-unsigned int get_rgb(int r, int g, int b)
-{
-	if (r > 0xFF)
-		r = 0xFF;
-	if (g > 0xFF)
-		g = 0xFF;
-	if (b > 0xFF)
-		b = 0xFF;
-	return (0x00 << 24 | r << 16 | g << 8 | b);
 }
 
 t_object    set_sphere()
@@ -80,7 +69,7 @@ t_object	set_cylinder()
 	t_object	obj;
 
 	obj.cylinder.center = set_vec3(0.0, -30.0, 50.5);
-	obj.cylinder.normal = set_vec3(0.0, -1.0, 0.0);
+	obj.cylinder.normal = set_vec3(0.0, 1.0, 0.0);
 	obj.cylinder.diameter = 6.2;
 	obj.cylinder.height = 10.42;
 	obj.amb = set_vec3(0, 255.0 * 0.2, 0);
@@ -98,31 +87,34 @@ int close_win(t_env *env)
 	return (0);
 }
 
-int	main()
+int	main(int ac, char **av)
 {
 	t_env       env;
-    t_object    sphere = set_sphere();
-    t_object    plane = set_plane();
-	t_object	cylinder = set_cylinder();
+	t_rt		rt;
+    // t_object    sphere = set_sphere();
+    // t_object    plane = set_plane();
+	// t_object	cylinder = set_cylinder();
 	t_ray		ray;
-	t_light		light = set_vec3(0.0, 0.0, -1.5);
-    t_vec3      eye_pos = set_vec3(0.0, 0.0, -1.5);
-    t_object    objects[3];
+	// t_light		light = set_vec3(0.0, 0.0, -1.5);
+    // t_vec3      eye_pos = set_vec3(0.0, 0.0, -1.5);
 
+	if (ac != 2)
+	{
+		write(1, "Error: Check your number of argument\n", 38);
+		return (1);
+	}
+	parse_input(av[1], &rt);
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "miniRT");
 	env.img.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
 	env.img.addr = mlx_get_data_addr(env.img.img, &env.img.bits_per_pixel, &env.img.line_length, &env.img.endian);
-	objects[0] = cylinder;
-	objects[1] = plane;
-	objects[2] = sphere;
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
 			ray.start = screen2word(x, y);
-			ray.dir = unit_vec3(sub_vec3(ray.start, eye_pos));
-			put_pixel(&env.img, x, y, trace_ray(ray, objects, light));
+			ray.dir = unit_vec3(sub_vec3(ray.start, rt.cam.point));
+			put_pixel(&env.img, x, y, trace_ray(ray, rt.objs, rt.light.point));
 		}
 	}
 	mlx_put_image_to_window(env.mlx, env.win, env.img.img, 0, 0);

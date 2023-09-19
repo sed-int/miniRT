@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:03 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 15:59:14 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/19 16:28:47 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int check_ray_cylinder_base_plane(t_ray ray, t_cylinder cylinder, t_vec3 *point,
 	d1 = (dot_vec3(add_vec3(scale_vec3(cylinder.normal, cylinder.height), cylinder.center), cylinder.normal) - dot_vec3(cylinder.normal, ray.start)) / dot_vec3(ray.dir, cylinder.normal);
 	d2 = (dot_vec3(cylinder.center, cylinder.normal) - dot_vec3(cylinder.normal, ray.start)) / dot_vec3(ray.dir, cylinder.normal);
 	*d = ((d1 < d2 ) * d1) + ((d1 >= d2) * d2);
-	printf("d: %lf\n", *d);
 	if (*d < 0.0)
 		return (0);
 	*point = add_vec3(ray.start, scale_vec3(ray.dir, *d));

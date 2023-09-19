@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/18 12:22:42 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/19 17:43:28 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	check_type(char *type, int *count)
 	else if (!ft_strcmp(type, "cy"))
 		ret = CYLINDER;
 	else
+	{
+		printf("asdf\n");
 		exit(1);
+	}
 	return (ret);
 }
 
@@ -56,15 +59,15 @@ void	check_filename(char *filename)
 
 	splitted = ft_split(filename, '.');
 	len = 0;
-	while (splitted[len++])
-		;
+	while (splitted[len])
+		len++;
 	if (len != 2)
 		exit(1);
 	if (ft_strcmp(splitted[1], "rt"))
 		exit(1);
 }
 
-int	parse_input(char *filename, void *env)
+void	parse_input(char *filename, void *env)
 {
 	int		fd;
 	char	*line;
@@ -75,15 +78,20 @@ int	parse_input(char *filename, void *env)
 	check_filename(filename);
 	init_count(count);
 	fd = open(filename, O_RDONLY);
+	(void)env;
+	printf("parse\n");
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (!line)
+		if (!line || !*line)
 			break ;
 		nl_to_null(line);
 		splitted = ft_split(line, ' ');
-		if (splitted)
-			type = check_type(splitted[0], count);
-
+		// printf("set ok\n");
+		if (!*splitted)
+			continue ;
+		type = check_type(splitted[0], count);
+		set_value(type, splitted, env);
 	}
+	printf("ok\n");
 }

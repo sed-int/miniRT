@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/09/17 11:49:30 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/19 14:41:57 by hyunminjo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,13 @@ typedef struct s_object
 	t_cylinder	cylinder;
 	t_hit		(*check_ray_collison)(t_ray, struct s_object);
 }	t_object;
+
+typedef struct	s_rt
+{
+	t_amb	amb;
+	t_cam	cam;
+	t_lgt	light;
+	t_object *objs;
+}	t_rt;
 
 #endif

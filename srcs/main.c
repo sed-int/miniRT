@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 17:48:11 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/22 22:54:16 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@ void put_pixel(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-t_vec3	screen2word(int x, int y)
+t_vec3	screen2word(t_cam cam, int x, int y)
 {
 	t_vec3	exchange_point;
 	double	radio;
-	double	x_scale;
-	double	y_scale;
+	double	fov;
 
 	radio = (double)WIDTH / HEIGHT;
-	x_scale = radio * 2 / WIDTH;
-	y_scale = 2.0 / HEIGHT;
-	exchange_point.x = -radio + x_scale * x;
-	exchange_point.y = 1 - y_scale * y;
+	fov = tan((cam.view_angle / 2) * (M_PI / 180));
+	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * fov * radio;
+	exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov;
 	exchange_point.z = 0.0;
-	return (exchange_point);
+	return (add_vec3(exchange_point, cam.dir));
 }
 
 t_object    set_sphere()
@@ -91,12 +89,7 @@ int	main(int ac, char **av)
 {
 	t_env       env;
 	t_rt		rt;
-    // t_object    sphere = set_sphere();
-    // t_object    plane = set_plane();
-	// t_object	cylinder = set_cylinder();
 	t_ray		ray;
-	// t_light		light = set_vec3(0.0, 0.0, -1.5);
-    // t_vec3      eye_pos = set_vec3(0.0, 0.0, -1.5);
 
 	if (ac != 2)
 	{
@@ -112,8 +105,8 @@ int	main(int ac, char **av)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
-			ray.start = screen2word(x, y);
-			ray.dir = unit_vec3(sub_vec3(ray.start, rt.cam.point));
+			ray.start = screen2word(rt.cam, x, y);
+			ray.dir = unit_vec3(sub_vec3(ray.start, scale_vec3(rt.cam.point, -1.0)));
 			put_pixel(&env.img, x, y, trace_ray(ray, rt.objs, rt.light.point));
 		}
 	}

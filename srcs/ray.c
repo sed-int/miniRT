@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 17:31:14 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/22 21:55:56 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ static t_hit   find_closest_collisun(t_ray ray, t_object *objects)
 			closest_hit.obj = objects;
 		}
 		objects = objects->next;
-	}
-
-	for (int i = 0; i < 3; i++) {
-
 	}
 	return (closest_hit);
 }

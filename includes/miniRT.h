@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 17:09:17 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/22 21:01:15 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_cam
 {
 	t_vec3	point;
 	t_vec3	dir;
+	int		view_angle;
 }	t_cam;
 
 typedef struct s_lgt

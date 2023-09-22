@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 17:44:23 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/22 21:02:19 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	set_value(int type, char **args, t_rt *rt)
 	{
 		set_point(args[1], &rt->cam.point);
 		set_dir(args[2], &rt->cam.dir);
+		rt->cam.view_angle = ft_atoi(args[3]);
 	}
 	else if (type == LIGHT)
 	{

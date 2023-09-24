@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/22 22:54:16 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/24 15:02:48 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void put_pixel(t_img *data, int x, int y, int color)
+void	put_pixel(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -20,46 +20,50 @@ void put_pixel(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-t_vec3	screen2word(t_cam cam, int x, int y)
+t_vec3	screen2world(t_cam cam, int x, int y)
 {
 	t_vec3	exchange_point;
-	double	radio;
-	double	fov;
+	double	ratio;
 
-	radio = (double)WIDTH / HEIGHT;
-	fov = tan((cam.view_angle / 2) * (M_PI / 180));
-	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * fov * radio;
-	exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * fov;
+	ratio = (double)(WIDTH / HEIGHT);
+	// x += cam.center.x - (WIDTH / 2.0) * ratio * cam.fov;
+	// y += cam.center.y - (HEIGHT / 2.0) * cam.fov;
+	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - cam.center.x) * cam.fov * ratio;
+	exchange_point.y = (cam.center.y - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
+	// exchange_point.x = cam.center.x - (WIDTH / 2.0) * ratio * cam.fov + ((x + 0.5)/ WIDTH) * cam.fov * ratio;
+	printf("%f\n", exchange_point.x);
+	// exchange_point.y = cam.center.y - (HEIGHT / 2.0) * cam.fov + ((y + 0.5)/ HEIGHT) * cam.fov;
 	exchange_point.z = 0.0;
-	return (add_vec3(exchange_point, cam.dir));
+	// return (add_vec3(exchange_point, cam.dir));
+	return (exchange_point);
 }
 
-t_object    set_sphere()
+t_object	set_sphere()
 {
-	t_object obj;
+	t_object	obj;
 
-    obj.sphere.center = set_vec3(0.0, 0.0, 10.5);
-    obj.sphere.radius = 3.0;
+	obj.sphere.center = set_vec3(0.0, 0.0, 10.5);
+	obj.sphere.radius = 3.0;
 	obj.amb = set_vec3(255.0 * 0.2, 0, 0);
 	obj.diffuse = set_vec3(255.0, 0.0, 0.0);
-    obj.specular = set_vec3(255.0, 255.0, 255.0);
-    obj.color = set_vec3(0.0, 0.0, 0.0);
-    obj.check_ray_collison = check_ray_collison_sphere;
+	obj.specular = set_vec3(255.0, 255.0, 255.0);
+	obj.color = set_vec3(0.0, 0.0, 0.0);
+	obj.check_ray_collison = check_ray_collison_sphere;
 	return (obj);
 }
 
-t_object    set_plane()
+t_object	set_plane(void)
 {
-    t_object obj;
+	t_object	obj;
 
-    obj.plane.point = set_vec3(0.0, 0.5, 0.0);
-    obj.plane.normal = set_vec3(0.0, 1.0, 0.0);
-    obj.amb = set_vec3(0, 0, 255.0 * 0.2);
-    obj.diffuse = set_vec3(0.0, 0.0, 255.0);
-    obj.specular = set_vec3(255.0, 255.0, 255.0);
-    obj.color = set_vec3(0.0, 0.0, 255.0);
-    obj.check_ray_collison = check_ray_collison_plane;
-    return (obj);
+	obj.plane.point = set_vec3(0.0, 0.5, 0.0);
+	obj.plane.normal = set_vec3(0.0, 1.0, 0.0);
+	obj.amb = set_vec3(0, 0, 255.0 * 0.2);
+	obj.diffuse = set_vec3(0.0, 0.0, 255.0);
+	obj.specular = set_vec3(255.0, 255.0, 255.0);
+	obj.color = set_vec3(0.0, 0.0, 255.0);
+	obj.check_ray_collison = check_ray_collison_plane;
+	return (obj);
 }
 
 t_object	set_cylinder()
@@ -87,15 +91,16 @@ int close_win(t_env *env)
 
 int	main(int ac, char **av)
 {
-	t_env       env;
-	t_rt		rt;
-	t_ray		ray;
+	t_env	env;
+	t_rt	rt;
+	t_ray	ray;
 
 	if (ac != 2)
 	{
 		write(1, "Error: Check your number of argument\n", 38);
 		return (1);
 	}
+	rt.objs = NULL;
 	parse_input(av[1], &rt);
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "miniRT");
@@ -105,8 +110,8 @@ int	main(int ac, char **av)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
-			ray.start = screen2word(rt.cam, x, y);
-			ray.dir = unit_vec3(sub_vec3(ray.start, scale_vec3(rt.cam.point, -1.0)));
+			ray.start = screen2world(rt.cam, x, y);
+			ray.dir = unit_vec3(sub_vec3(ray.start, rt.cam.point));
 			put_pixel(&env.img, x, y, trace_ray(ray, rt.objs, rt.light.point));
 		}
 	}

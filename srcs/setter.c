@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/22 21:02:19 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/24 16:39:26 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,24 @@ void	set_point(char *arg, t_vec3 *point)
 	point->z = atof(splitted[2]);
 }
 
+void	set_camera(char **args, t_cam *cam)
+{
+	t_vec3	vup;
+
+	vup = set_vec3(0, 1, 0);
+	set_point(args[1], cam->point);
+	set_dir(args[2], cam->dir);
+	cam->view_angle = ft_atoi(args[3]) / 2.0;
+	cam->center = add_vec3(cam->point,\
+		scale_vec3(cam->dir, WIDTH / 2.0));
+	cam->fov = tan(cam->view_angle * (M_PI / 180));
+	vup = set_vec3(0, 1, 0);
+	if (cam->dir.y != 0.0)
+		vup = set_vec3(0, 0, 1);
+	cam->horiz = unit_vec3(cross_vec3(vup, cam->dir));
+	cam->vert = unit_vec3(cross_vec3(cam->horiz, cam->dir));
+}
+
 void	set_value(int type, char **args, t_rt *rt)
 {
 	t_object	*new;
@@ -87,9 +105,7 @@ void	set_value(int type, char **args, t_rt *rt)
 	}
 	else if (type == CAMERA)
 	{
-		set_point(args[1], &rt->cam.point);
-		set_dir(args[2], &rt->cam.dir);
-		rt->cam.view_angle = ft_atoi(args[3]);
+		set_camera(args, &rt->cam);
 	}
 	else if (type == LIGHT)
 	{

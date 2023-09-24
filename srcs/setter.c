@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/24 16:39:26 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/24 19:21:53 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,3 +149,4 @@ void	set_value(int type, char **args, t_rt *rt)
 		obj_lstadd_back(&(rt->objs), new);
 	}
 }
+ft_atof

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 21:49:28 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 16:01:58 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/26 12:58:14 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		ft_isprint(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_atoi(const char *str);
+double	ft_atof(const char *str);
 int		check_over_max(int sign, long result, const char *str);
 int		check_under_min(int sign, long result, const char *str);
 int		ft_strcmp(char *s1, char *s2);

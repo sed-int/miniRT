@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:50:22 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 17:27:33 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/26 13:11:16 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "miniRT.h"
+#include "miniRT.h"
 
-t_object	*new_obj()
+t_object	*new_obj(void)
 {
 	t_object	*tmp;
 

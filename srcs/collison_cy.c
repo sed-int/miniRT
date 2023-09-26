@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collison_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:03 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 16:28:47 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/26 13:12:45 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_over_cylinder_range(double h, double max)
 	return (0);
 }
 
-int check_ray_cylinder_side(t_ray ray, t_cylinder cylinder, t_vec3 *point, t_vec3 *normal, double *d)
+int	check_ray_cylinder_side(t_ray ray, t_cylinder cylinder, t_vec3 *point, t_vec3 *normal, double *d)
 {
 	double	a;
 	double	b;

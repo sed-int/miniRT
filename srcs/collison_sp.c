@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   collison_sp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:07 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 15:15:24 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/26 13:18:08 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+double	get_distance(double b, double nabla)
+{
+	double	d1;
+	double	d2;
+
+	d1 = -b + sqrtf(nabla);
+	d2 = -b - sqrtf(nabla);
+	return (((d1 < d2) * d1) + ((d1 >= d2) * d2));
+}
 
 t_hit	check_ray_collison_sphere(t_ray ray, t_object obj)
 {
@@ -27,9 +37,7 @@ t_hit	check_ray_collison_sphere(t_ray ray, t_object obj)
 	nabla = b * b - c;
 	if (nabla >= 0.0)
 	{
-		double d1 = -b + sqrtf(nabla);
-		double d2 = -b - sqrtf(nabla);
-		hit.d = ((d1 < d2 ) * d1) + ((d1 >= d2) * d2);
+		hit.d = get_distance(b, nabla);
 		hit.point = add_vec3(ray.start, scale_vec3(ray.dir, hit.d));
 		hit.normal = unit_vec3(sub_vec3(hit.point, obj.sphere.center));
 	}

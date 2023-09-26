@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/24 16:23:00 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:15:27 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ typedef struct s_rt
 	t_object	*objs;
 }	t_rt;
 
-int	trace_ray(t_ray ray, t_object *objects, t_light light_pos);
+int			trace_ray(t_ray ray, t_object *objects, t_light light_pos);
 
 // parse
-void	parse_input(char *filename, void *env);
-void	set_value(int type, char **args, t_rt *rt);
-t_object	*new_obj();
-void	obj_lstadd_back(t_object **lst, t_object *new);
+void		parse_input(char *filename, void *env);
+void		set_value(int type, char **args, t_rt *rt);
+t_object	*new_obj(void);
+void		obj_lstadd_back(t_object **lst, t_object *new);
 
 #endif

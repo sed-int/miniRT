@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/19 17:43:28 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/26 13:19:19 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	parse_input(char *filename, void *env)
 			break ;
 		nl_to_null(line);
 		splitted = ft_split(line, ' ');
-		// printf("set ok\n");
 		if (!*splitted)
 			continue ;
 		type = check_type(splitted[0], count);

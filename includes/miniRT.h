@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/26 13:15:27 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 14:47:14 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,19 @@ typedef struct s_rt
 
 int			trace_ray(t_ray ray, t_object *objects, t_light light_pos);
 
-// parse
+/* parser */
 void		parse_input(char *filename, void *env);
 void		set_value(int type, char **args, t_rt *rt);
 t_object	*new_obj(void);
 void		obj_lstadd_back(t_object **lst, t_object *new);
+
+/* setter */
+void		set_object(int type, char **args, t_object *obj, t_rt *rt);
+void		set_camera(char **args, t_cam *cam);
+void		set_ambient(char **args, t_amb *amb);
+void		set_light(char **args, t_light *light);
+void		set_sphere(char **args, t_object *obj, t_rt *rt);
+void		set_plane(char **args, t_object *obj, t_rt *rt);
+void		set_cylinder(char **args, t_object *obj, t_rt *rt);
 
 #endif

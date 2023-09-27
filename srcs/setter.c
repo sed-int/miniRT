@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/24 19:21:53 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 14:50:07 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ void	set_dir(char *arg, t_vec3 *dir)
 	if (dir->x > 1 || dir->x < -1 || \
 		dir->y > 1 || dir->y < -1 || \
 		dir->z > 1 || dir->z < -1)
-		{
-			printf("d\n");
-			exit(1);
-		}
+	{
+		printf("d\n");
+		exit(1);
+	}
 }
 
 void	set_ratio(char *arg, double	*ratio)
 {
 	*ratio = atof(arg);
 	if (*ratio < 0 || *ratio > 1)
-		{
-			printf("ra\n");
-			exit(1);
-		}
+	{
+		printf("ra\n");
+		exit(1);
+	}
 }
 
 void	set_color(char *arg, t_vec3 *color)
@@ -58,10 +58,10 @@ void	set_color(char *arg, t_vec3 *color)
 	if (color->r > 255 || color->r < 0 \
 		|| color->g > 255 || color->g < 0 \
 		|| color->b > 255 || color->b < 0)
-		{
-			printf("color\n");
-			exit(1);
-		}
+	{
+		printf("color\n");
+		exit(1);
+	}
 }
 
 void	set_point(char *arg, t_vec3 *point)
@@ -76,77 +76,14 @@ void	set_point(char *arg, t_vec3 *point)
 	point->z = atof(splitted[2]);
 }
 
-void	set_camera(char **args, t_cam *cam)
-{
-	t_vec3	vup;
-
-	vup = set_vec3(0, 1, 0);
-	set_point(args[1], cam->point);
-	set_dir(args[2], cam->dir);
-	cam->view_angle = ft_atoi(args[3]) / 2.0;
-	cam->center = add_vec3(cam->point,\
-		scale_vec3(cam->dir, WIDTH / 2.0));
-	cam->fov = tan(cam->view_angle * (M_PI / 180));
-	vup = set_vec3(0, 1, 0);
-	if (cam->dir.y != 0.0)
-		vup = set_vec3(0, 0, 1);
-	cam->horiz = unit_vec3(cross_vec3(vup, cam->dir));
-	cam->vert = unit_vec3(cross_vec3(cam->horiz, cam->dir));
-}
-
 void	set_value(int type, char **args, t_rt *rt)
 {
-	t_object	*new;
-
 	if (type == AMBIENT)
-	{
-		set_ratio(args[1], &(rt->amb.ratio));
-		set_color(args[2], &(rt->amb.color));
-	}
+		set_ambient(args, &rt->amb);
 	else if (type == CAMERA)
-	{
 		set_camera(args, &rt->cam);
-	}
 	else if (type == LIGHT)
-	{
-		set_point(args[1], &rt->light.point);
-		set_ratio(args[2], &rt->light.ratio);
-		set_color(args[3], &rt->light.color);
-	}
-	else if (type == SPHERE)
-	{
-		new = new_obj();
-		set_point(args[1], &new->sphere.center);
-		new->sphere.radius = atof(args[2]) / 2;
-		set_color(args[3], &new->diffuse);
-		new->amb = scale_vec3(new->diffuse, 0.2);
-		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
-		new->check_ray_collison = check_ray_collison_sphere;
-		obj_lstadd_back(&(rt->objs), new);
-	}
-	else if (type == PLANE)
-	{
-		new = new_obj();
-		set_point(args[1], &new->plane.point);
-		set_dir(args[2], &new->plane.normal);
-		set_color(args[3], &new->diffuse);
-		new->amb = scale_vec3(new->diffuse, 0.2);
-		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
-		new->check_ray_collison = check_ray_collison_plane;
-		obj_lstadd_back(&(rt->objs), new);
-	}
-	else if (type == CYLINDER)
-	{
-		new = new_obj();
-		set_point(args[1], &new->cylinder.center);
-		set_dir(args[2], &new->cylinder.normal);
-		new->cylinder.diameter = atof(args[3]);
-		new->cylinder.height = atof(args[4]);
-		set_color(args[5], &new->diffuse);
-		new->amb = scale_vec3(new->diffuse, 0.2);
-		new->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
-		new->check_ray_collison = check_ray_collison_cylinder;
-		obj_lstadd_back(&(rt->objs), new);
-	}
+		set_light(args, &rt->light);
+	else
+		set_object(type, args, obj, rt);
 }
-ft_atof

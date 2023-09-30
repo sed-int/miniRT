@@ -35,7 +35,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(MAKE) -C ./$(LIBDIR)/mlx
-	@$(MAKE) bonus -C ./$(LIBDIR)/get_next_line
+	@$(MAKE) -C ./$(LIBDIR)/get_next_line
 	@$(MAKE) -C ./$(LIBDIR)/libft
 	@echo $(GREEN)"mlx made" $(EOC)
 	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME) -fsanitize=address -g3

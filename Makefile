@@ -16,7 +16,10 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 LIBDIR		= ./lib
 
 SRCDIR		= ./srcs
-SRC			= main.c vec3.c collison_cy.c collison_pl.c collison_sp.c ray.c parser.c setter.c parser_utils.c
+SRC			= main.c vec3.c \
+			collison_cy.c collison_pl.c collison_sp.c \
+			ray.c parser.c parser_utils.c \
+			setter.c setter_utils.c setter_object.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 
@@ -31,7 +34,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(MAKE) -C ./$(LIBDIR)/mlx
-	@$(MAKE) -C ./$(LIBDIR)/get_next_line
+	@$(MAKE) bonus -C ./$(LIBDIR)/get_next_line
 	@$(MAKE) -C ./$(LIBDIR)/libft
 	@echo $(GREEN)"mlx made" $(EOC)
 	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME) -fsanitize=address -g3

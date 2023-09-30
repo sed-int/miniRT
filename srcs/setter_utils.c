@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:27:23 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/27 14:48:59 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 15:12:04 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	set_camera(char **args, t_cam *cam)
 	t_vec3	vup;
 
 	vup = set_vec3(0, 1, 0);
-	set_point(args[1], cam->point);
-	set_dir(args[2], cam->dir);
+	set_point(args[1], &cam->point);
+	set_dir(args[2], &cam->dir);
 	cam->view_angle = ft_atoi(args[3]) / 2.0;
-	cam->center = add_vec3(cam->point,\
+	cam->point = add_vec3(cam->point,\
 		scale_vec3(cam->dir, WIDTH / 2.0));
 	cam->fov = tan(cam->view_angle * (M_PI / 180));
 	vup = set_vec3(0, 1, 0);

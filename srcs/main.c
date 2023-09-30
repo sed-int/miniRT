@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/24 15:02:48 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 15:28:15 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_vec3	screen2world(t_cam cam, int x, int y)
 	double	ratio;
 
 	ratio = (double)(WIDTH / HEIGHT);
-	// x += cam.center.x - (WIDTH / 2.0) * ratio * cam.fov;
-	// y += cam.center.y - (HEIGHT / 2.0) * cam.fov;
-	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - cam.center.x) * cam.fov * ratio;
-	exchange_point.y = (cam.center.y - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
+	// x += cam.point.x - (WIDTH / 2.0) * ratio * cam.fov;
+	// y += cam.point.y - (HEIGHT / 2.0) * cam.fov;
+	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * cam.fov * ratio;
+	exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
 	// exchange_point.x = cam.center.x - (WIDTH / 2.0) * ratio * cam.fov + ((x + 0.5)/ WIDTH) * cam.fov * ratio;
 	printf("%f\n", exchange_point.x);
 	// exchange_point.y = cam.center.y - (HEIGHT / 2.0) * cam.fov + ((y + 0.5)/ HEIGHT) * cam.fov;
@@ -38,51 +38,51 @@ t_vec3	screen2world(t_cam cam, int x, int y)
 	return (exchange_point);
 }
 
-t_object	set_sphere()
-{
-	t_object	obj;
+// t_object	set_sphere()
+// {
+// 	t_object	obj;
 
-	obj.sphere.center = set_vec3(0.0, 0.0, 10.5);
-	obj.sphere.radius = 3.0;
-	obj.amb = set_vec3(255.0 * 0.2, 0, 0);
-	obj.diffuse = set_vec3(255.0, 0.0, 0.0);
-	obj.specular = set_vec3(255.0, 255.0, 255.0);
-	obj.color = set_vec3(0.0, 0.0, 0.0);
-	obj.check_ray_collison = check_ray_collison_sphere;
-	return (obj);
-}
+// 	obj.sphere.center = set_vec3(0.0, 0.0, 10.5);
+// 	obj.sphere.radius = 3.0;
+// 	obj.amb = set_vec3(255.0 * 0.2, 0, 0);
+// 	obj.diffuse = set_vec3(255.0, 0.0, 0.0);
+// 	obj.specular = set_vec3(255.0, 255.0, 255.0);
+// 	obj.color = set_vec3(0.0, 0.0, 0.0);
+// 	obj.check_ray_collison = check_ray_collison_sphere;
+// 	return (obj);
+// }
 
-t_object	set_plane(void)
-{
-	t_object	obj;
+// t_object	set_plane(void)
+// {
+// 	t_object	obj;
 
-	obj.plane.point = set_vec3(0.0, 0.5, 0.0);
-	obj.plane.normal = set_vec3(0.0, 1.0, 0.0);
-	obj.amb = set_vec3(0, 0, 255.0 * 0.2);
-	obj.diffuse = set_vec3(0.0, 0.0, 255.0);
-	obj.specular = set_vec3(255.0, 255.0, 255.0);
-	obj.color = set_vec3(0.0, 0.0, 255.0);
-	obj.check_ray_collison = check_ray_collison_plane;
-	return (obj);
-}
+// 	obj.plane.point = set_vec3(0.0, 0.5, 0.0);
+// 	obj.plane.normal = set_vec3(0.0, 1.0, 0.0);
+// 	obj.amb = set_vec3(0, 0, 255.0 * 0.2);
+// 	obj.diffuse = set_vec3(0.0, 0.0, 255.0);
+// 	obj.specular = set_vec3(255.0, 255.0, 255.0);
+// 	obj.color = set_vec3(0.0, 0.0, 255.0);
+// 	obj.check_ray_collison = check_ray_collison_plane;
+// 	return (obj);
+// }
 
-t_object	set_cylinder()
-{
-	t_object	obj;
+// t_object	set_cylinder()
+// {
+// 	t_object	obj;
 
-	obj.cylinder.center = set_vec3(0.0, -30.0, 50.5);
-	obj.cylinder.normal = set_vec3(0.0, 1.0, 0.0);
-	obj.cylinder.diameter = 6.2;
-	obj.cylinder.height = 10.42;
-	obj.amb = set_vec3(0, 255.0 * 0.2, 0);
-	obj.diffuse = set_vec3(0.0, 255.0, 0.0);
-	obj.specular = set_vec3(255.0, 255.0, 255.0);
-	obj.color = set_vec3(0.0, 0.0, 0.0);
-	obj.check_ray_collison = check_ray_collison_cylinder;
-	return (obj);
-}
+// 	obj.cylinder.center = set_vec3(0.0, -30.0, 50.5);
+// 	obj.cylinder.normal = set_vec3(0.0, 1.0, 0.0);
+// 	obj.cylinder.diameter = 6.2;
+// 	obj.cylinder.height = 10.42;
+// 	obj.amb = set_vec3(0, 255.0 * 0.2, 0);
+// 	obj.diffuse = set_vec3(0.0, 255.0, 0.0);
+// 	obj.specular = set_vec3(255.0, 255.0, 255.0);
+// 	obj.color = set_vec3(0.0, 0.0, 0.0);
+// 	obj.check_ray_collison = check_ray_collison_cylinder;
+// 	return (obj);
+// }
 
-int close_win(t_env *env)
+int	close_win(t_env *env)
 {
 	mlx_destroy_window(env->mlx, env->win);
 	exit(0);

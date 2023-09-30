@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:48:30 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/27 14:50:04 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 15:12:23 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	set_cylinder(char **args, t_object *obj, t_rt *rt)
 	obj->check_ray_collison = check_ray_collison_cylinder;
 }
 
-void	set_object(int type, char **args, t_object *obj, t_rt *rt)
+void	set_object(int type, char **args, t_rt *rt)
 {
 	t_object	*new;
 

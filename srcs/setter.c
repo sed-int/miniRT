@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/27 14:50:07 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/27 15:05:56 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void	set_value(int type, char **args, t_rt *rt)
 	else if (type == LIGHT)
 		set_light(args, &rt->light);
 	else
-		set_object(type, args, obj, rt);
+		set_object(type, args, rt);
 }

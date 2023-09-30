@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/30 17:34:05 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/30 21:12:33 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,40 @@ t_vec3	screen2world(t_cam cam, int x, int y)
 {
 	t_vec3	exchange_point;
 	double	ratio;
+	t_vec3	x_axis;
+	t_vec3	y_axis;
+	t_vec3	left_top;
+	t_vec3	change_x;
+	t_vec3	change_y;
 
 	ratio = (double)(WIDTH) / HEIGHT;
+	y_axis = scale_vec3(cam.axis[1], cam.fov * 2.0);
+	x_axis = scale_vec3(cam.axis[0], cam.fov * 2.0 * ratio);
+	// auto viewport_upper_left = center - (focal_length * w) - viewport_u/2 - viewport_v/2;
+	left_top = add_vec3(scale_vec3(x_axis, -0.5), \
+			scale_vec3(y_axis, 0.5));
+	printf("left top: ");
+	print_vec3(left_top);
+	change_x = div_vec3(x_axis, WIDTH);
+	change_y = div_vec3(y_axis, HEIGHT);
+	// printf("change_x : ");
+	// print_vec3(change_x);
+	// printf("change_y : ");
+	// print_vec3(change_y);
+	exchange_point.x = left_top.x + 0.5 * (change_x.x * x + change_y.x * y);
+	exchange_point.y = left_top.y - 0.5 * (change_x.y * x + change_y.y * y);
 	// x += cam.point.x - (WIDTH / 2.0) * ratio * cam.fov;
 	// y += cam.point.y - (HEIGHT / 2.0) * cam.fov;
-	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * cam.fov * ratio;
-	exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
+	// exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * cam.fov * ratio;
+	// exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
 	// exchange_point.x = cam.center.x - (WIDTH / 2.0) * ratio * cam.fov + ((x + 0.5)/ WIDTH) * cam.fov * ratio;
 	// printf("%f\n", exchange_point.x);
 	// exchange_point.y = cam.center.y - (HEIGHT / 2.0) * cam.fov + ((y + 0.5)/ HEIGHT) * cam.fov;
 	exchange_point.z = cam.dir.z;
 	// return (add_vec3(exchange_point, cam.dir));
 	// printf("%0.2f %0.2f\n", exchange_point.x, exchange_point.y);
+	printf("exchange point: ");
+	print_vec3(exchange_point);
 	return (exchange_point);
 }
 

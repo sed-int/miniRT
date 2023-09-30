@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:05:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/16 18:54:46 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/30 16:10:43 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_vec3	cross_vec3(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.x = u.x * v.z - u.z * v.y;
+	ret.x = u.y * v.z - u.z * v.y;
 	ret.y = u.z * v.x - u.x * v.z;
-	ret.z = u.x * v.y - u.y * v.z;
+	ret.z = u.x * v.y - u.y * v.x;
 	return (ret);
 }
 

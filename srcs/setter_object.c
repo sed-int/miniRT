@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:48:30 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/27 15:12:23 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/30 15:35:56 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	set_sphere(char **args, t_object *obj, t_rt *rt)
 {
+	obj->type = SPHERE;
 	set_point(args[1], &obj->sphere.center);
-	obj->sphere.radius = atof(args[2]) / 2;
+	obj->sphere.radius = atof(args[2]) / 2.0;
 	set_color(args[3], &obj->diffuse);
 	obj->amb = scale_vec3(obj->diffuse, 0.2);
 	obj->specular = set_vec3(rt->light.color.r, rt->light.color.g, rt->light.color.b);
@@ -24,6 +25,7 @@ void	set_sphere(char **args, t_object *obj, t_rt *rt)
 
 void	set_plane(char **args, t_object *obj, t_rt *rt)
 {
+	obj->type = PLANE;
 	set_point(args[1], &obj->plane.point);
 	set_dir(args[2], &obj->plane.normal);
 	set_color(args[3], &obj->diffuse);
@@ -34,6 +36,7 @@ void	set_plane(char **args, t_object *obj, t_rt *rt)
 
 void	set_cylinder(char **args, t_object *obj, t_rt *rt)
 {
+	obj->type = CYLINDER;
 	set_point(args[1], &obj->cylinder.center);
 	set_dir(args[2], &obj->cylinder.normal);
 	obj->cylinder.diameter = atof(args[3]);

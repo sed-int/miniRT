@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/27 15:28:15 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/30 17:34:05 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ t_vec3	screen2world(t_cam cam, int x, int y)
 	t_vec3	exchange_point;
 	double	ratio;
 
-	ratio = (double)(WIDTH / HEIGHT);
+	ratio = (double)(WIDTH) / HEIGHT;
 	// x += cam.point.x - (WIDTH / 2.0) * ratio * cam.fov;
 	// y += cam.point.y - (HEIGHT / 2.0) * cam.fov;
 	exchange_point.x = (2 * ((x + 0.5) / WIDTH) - 1) * cam.fov * ratio;
 	exchange_point.y = (1 - 2 * ((y + 0.5) / HEIGHT)) * cam.fov;
 	// exchange_point.x = cam.center.x - (WIDTH / 2.0) * ratio * cam.fov + ((x + 0.5)/ WIDTH) * cam.fov * ratio;
-	printf("%f\n", exchange_point.x);
+	// printf("%f\n", exchange_point.x);
 	// exchange_point.y = cam.center.y - (HEIGHT / 2.0) * cam.fov + ((y + 0.5)/ HEIGHT) * cam.fov;
-	exchange_point.z = 0.0;
+	exchange_point.z = cam.dir.z;
 	// return (add_vec3(exchange_point, cam.dir));
+	// printf("%0.2f %0.2f\n", exchange_point.x, exchange_point.y);
 	return (exchange_point);
 }
 
@@ -106,6 +107,9 @@ int	main(int ac, char **av)
 	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "miniRT");
 	env.img.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
 	env.img.addr = mlx_get_data_addr(env.img.img, &env.img.bits_per_pixel, &env.img.line_length, &env.img.endian);
+	view_transform(rt.objs, rt.cam);
+	// print_vec3(rt.objs->sphere.center);
+	rt.cam.point = set_vec3(0, 0, 0);
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)

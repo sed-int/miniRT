@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:07 by phan              #+#    #+#             */
-/*   Updated: 2023/09/26 13:18:08 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/30 15:39:53 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_hit	check_ray_collison_sphere(t_ray ray, t_object obj)
 	double	nabla;
 
 	hit.d = -1.0;
+	// print_vec3(ray.dir);
 	tmp = sub_vec3(ray.start, obj.sphere.center);
 	b = dot_vec3(ray.dir, tmp);
 	c = dot_vec3(tmp, tmp) - obj.sphere.radius * obj.sphere.radius;

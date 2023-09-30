@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 17:10:56 by phan             ###   ########.fr       */
+/*   Updated: 2023/09/30 14:27:54 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include "vec3.h"
 # include "hit.h"
 # include "ray.h"
+
+
+enum	e_type
+{
+	AMBIENT,
+	CAMERA,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	CYLINDER
+};
 
 typedef struct s_sphere
 {
@@ -39,6 +50,7 @@ typedef struct s_cylinder
 
 typedef struct s_object
 {
+	enum e_type		type;
 	t_vec3		amb;
 	t_vec3		diffuse;
 	t_vec3		specular;

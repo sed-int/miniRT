@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:27:23 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/30 16:06:34 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/01 17:05:41 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,18 @@ void	set_camera(char **args, t_cam *cam)
 	set_point(args[1], &cam->point);
 	set_dir(args[2], &cam->dir);
 	cam->view_angle = ft_atoi(args[3]) / 2.0;
-	// cam->point = add_vec3(cam->point,\
-	// 	scale_vec3(cam->dir, WIDTH / 2.0));
 	cam->fov = tan(cam->view_angle * (M_PI / 180));
 	vup = set_vec3(0, 1, 0);
-	// if (cam->dir.y != 0.0)
-	// 	vup = set_vec3(0, 0, 1);
+	if ((cam->dir.y != 0.0) && (cam->dir.x == 0 && cam->dir.z ==0))  
+		vup = set_vec3(0, 0, 1);
 	cam->axis[2] = unit_vec3(cam->dir);
 	cam->axis[0] = unit_vec3(cross_vec3(vup, cam->axis[2]));
 	cam->axis[1] = unit_vec3(cross_vec3(cam->axis[2], cam->axis[0]));
-	// cam->axis[1] = cross_vec3(cam->axis[0], cam->dir);
-	// printf("axis 1 : ");
-	// print_vec3(cam->axis[0]);
-	// print_vec3(cam->axis[1]);
+	printf("------------\n");
+	print_vec3(cam->axis[0]);
+	print_vec3(cam->axis[1]);
+	print_vec3(cam->axis[2]);
+	printf("------------\n");
 }
 
 void	set_ambient(char **args, t_amb *amb)

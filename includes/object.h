@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/09/30 14:27:54 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/01 13:22:57 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,15 @@ typedef struct s_cylinder
 typedef struct s_object
 {
 	enum e_type		type;
-	t_vec3		amb;
-	t_vec3		diffuse;
-	t_vec3		specular;
-	t_vec3		color;
-	t_plane		plane;
-	t_sphere	sphere;
-	t_cylinder	cylinder;
-	t_hit		(*check_ray_collison)(t_ray, struct s_object);
+	t_vec3			amb;
+	t_vec3			diffuse;
+	t_vec3			specular;
+	t_vec3			color;
+	t_vec3			orig;
+	t_plane			plane;
+	t_sphere		sphere;
+	t_cylinder		cylinder;
+	t_hit			(*check_ray_collison)(t_ray, struct s_object);
 	struct s_object	*next;
 }	t_object;
 

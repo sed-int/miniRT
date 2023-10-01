@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:48:30 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/30 15:35:56 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/01 13:25:44 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	set_sphere(char **args, t_object *obj, t_rt *rt)
 {
 	obj->type = SPHERE;
 	set_point(args[1], &obj->sphere.center);
+	set_point(args[1], &obj->orig);
 	obj->sphere.radius = atof(args[2]) / 2.0;
 	set_color(args[3], &obj->diffuse);
 	obj->amb = scale_vec3(obj->diffuse, 0.2);
@@ -27,6 +28,7 @@ void	set_plane(char **args, t_object *obj, t_rt *rt)
 {
 	obj->type = PLANE;
 	set_point(args[1], &obj->plane.point);
+	set_point(args[1], &obj->orig);
 	set_dir(args[2], &obj->plane.normal);
 	set_color(args[3], &obj->diffuse);
 	obj->amb = scale_vec3(obj->diffuse, 0.2);
@@ -38,6 +40,7 @@ void	set_cylinder(char **args, t_object *obj, t_rt *rt)
 {
 	obj->type = CYLINDER;
 	set_point(args[1], &obj->cylinder.center);
+	set_point(args[1], &obj->orig);
 	set_dir(args[2], &obj->cylinder.normal);
 	obj->cylinder.diameter = atof(args[3]);
 	obj->cylinder.height = atof(args[4]);

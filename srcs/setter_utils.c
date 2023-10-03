@@ -3,45 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   setter_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 14:27:23 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/01 17:05:41 by phan             ###   ########.fr       */
+/*   Created: 2023/10/02 12:08:59 by hcho2             #+#    #+#             */
+/*   Updated: 2023/10/02 12:11:19 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	set_camera(char **args, t_cam *cam)
+int	split_len(char **p)
 {
-	t_vec3	vup;
+	int	len;
 
-	set_point(args[1], &cam->point);
-	set_dir(args[2], &cam->dir);
-	cam->view_angle = ft_atoi(args[3]) / 2.0;
-	cam->fov = tan(cam->view_angle * (M_PI / 180));
-	vup = set_vec3(0, 1, 0);
-	if ((cam->dir.y != 0.0) && (cam->dir.x == 0 && cam->dir.z ==0))  
-		vup = set_vec3(0, 0, 1);
-	cam->axis[2] = unit_vec3(cam->dir);
-	cam->axis[0] = unit_vec3(cross_vec3(vup, cam->axis[2]));
-	cam->axis[1] = unit_vec3(cross_vec3(cam->axis[2], cam->axis[0]));
-	printf("------------\n");
-	print_vec3(cam->axis[0]);
-	print_vec3(cam->axis[1]);
-	print_vec3(cam->axis[2]);
-	printf("------------\n");
+	len = 0;
+	while (p[len])
+		len++;
+	return (len);
 }
 
-void	set_ambient(char **args, t_amb *amb)
+void	set_dir(char *arg, t_vec3 *dir)
 {
-	set_ratio(args[1], &amb->ratio);
-	set_color(args[2], &amb->color);
+	char	**splitted;
+
+	splitted = ft_split(arg, ',');
+	if (split_len(splitted) != 3)
+		exit(1);
+	dir->x = atof(splitted[0]);
+	dir->y = atof(splitted[1]);
+	dir->z = atof(splitted[2]);
+	if (dir->x > 1 || dir->x < -1 || \
+		dir->y > 1 || dir->y < -1 || \
+		dir->z > 1 || dir->z < -1)
+		exit(1);
 }
 
-void	set_light(char **args, t_light *light)
+void	set_ratio(char *arg, double	*ratio)
 {
-	set_point(args[1], &light->point);
-	set_ratio(args[2], &light->ratio);
-	set_color(args[3], &light->color);
+	*ratio = atof(arg);
+	if (*ratio < 0 || *ratio > 1)
+		exit(1);
 }

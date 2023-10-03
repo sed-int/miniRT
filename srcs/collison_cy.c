@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:03 by phan              #+#    #+#             */
-/*   Updated: 2023/09/26 13:19:01 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/02 12:03:46 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ t_hit	check_ray_collison_cylinder(t_ray ray, t_object obj)
 	double	d;
 
 	hit.d = -1.0;
-	if (check_ray_cylinder_base_plane(ray, obj.cylinder, &point, &normal, &d) ||
-		check_ray_cylinder_side(ray, obj.cylinder, &point, &normal, &d))
+	if (check_ray_cylinder_base_plane(ray, obj.cylinder, &point, &normal, &d)
+		|| check_ray_cylinder_side(ray, obj.cylinder, &point, &normal, &d))
 	{
 		hit.d = d;
 		hit.point = point;

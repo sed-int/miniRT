@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   rotate_cam.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 13:30:39 by phan              #+#    #+#             */
-/*   Updated: 2023/10/01 16:25:17 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/02 12:04:55 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void rotate_x(t_vec3 *dir, double theta)
+void	rotate_x(t_vec3 *dir, double theta)
 {
-	double prev_x;
-	double prev_y;
-	double prev_z;
+	double	prev_x;
+	double	prev_y;
+	double	prev_z;
 
 	prev_x = dir->x;
 	prev_y = dir->y;
@@ -26,11 +26,11 @@ void rotate_x(t_vec3 *dir, double theta)
 	dir->z = prev_y * sin(theta) + prev_z * cos(theta);
 }
 
-void rotate_y(t_vec3 *dir, double theta)
+void	rotate_y(t_vec3 *dir, double theta)
 {
-	double prev_x;
-	double prev_y;
-	double prev_z;
+	double	prev_x;
+	double	prev_y;
+	double	prev_z;
 
 	prev_x = dir->x;
 	prev_y = dir->y;
@@ -40,11 +40,11 @@ void rotate_y(t_vec3 *dir, double theta)
 	dir->z = prev_x * sin(theta) + prev_z * cos(theta);
 }
 
-void rotate_z(t_vec3 *dir, double theta)
+void	rotate_z(t_vec3 *dir, double theta)
 {
-	double prev_x;
-	double prev_y;
-	double prev_z;
+	double	prev_x;
+	double	prev_y;
+	double	prev_z;
 
 	prev_x = dir->x;
 	prev_y = dir->y;

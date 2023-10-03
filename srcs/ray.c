@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/09/27 15:08:47 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/02 14:27:55 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static unsigned int	get_rgb(int r, int g, int b)
 	return (0x00 << 24 | r << 16 | g << 8 | b);
 }
 
-int	trace_ray(t_ray ray, t_object *objects, t_vec3 light_pos)
+int	trace_ray(t_ray ray, t_object *objects, t_light light, t_amb amb)
 {
 	t_hit		hit;
 	t_object	obj;
 
 	hit = find_closest_collisun(ray, objects);
 	if (hit.d < 0)
-		return (0);
-	t_vec3	dir2light = unit_vec3(sub_vec3(light_pos, hit.point));
+		return (get_rgb(amb.color.r * amb.ratio, amb.color.g * amb.ratio, amb.color.b * amb.ratio));
+	t_vec3	dir2light = unit_vec3(sub_vec3(light.point, hit.point));
 	double	diff = dot_vec3(dir2light, hit.normal);
 	obj = *(hit.obj);
 	diff = (diff >= 0.0) * diff;

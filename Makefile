@@ -16,11 +16,11 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 LIBDIR		= ./lib
 
 SRCDIR		= ./srcs
-SRC			= main.c vec3.c \
+SRC			= main.c vec3.c render_world.c \
 			collison_cy.c collison_pl.c collison_sp.c \
 			ray.c parser.c parser_utils.c \
-			setter.c setter_utils.c setter_object.c \
-			camera.c event.c \
+			setter.c setter_utils.c setter_object.c setter_env.c \
+			view_transformer.c event.c \
 			translate_cam.c rotate_cam.c
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)

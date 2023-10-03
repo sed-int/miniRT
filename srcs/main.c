@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 16:48:09 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/03 16:57:55 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int ac, char **av)
 	env.img.addr = mlx_get_data_addr(env.img.img, &env.img.bits_per_pixel, \
 		&env.img.line_length, &env.img.endian);
 	render_world(env);
-	env.is_down = 0;
+	env.is_left_down = 0;
+	env.is_right_down = 0;
 	mlx_hook(env.win, ON_KEYDOWN, 1L << 0, key_hook, &env);
 	mlx_hook(env.win, ON_MOUSEDOWN, 1L << 0, mouse_down_hook, &env);
 	mlx_hook(env.win, ON_MOUSEUP, 1L << 0, mouse_up_hook, &env);

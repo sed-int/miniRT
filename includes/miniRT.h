@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 16:06:59 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/03 16:57:40 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ typedef struct s_env
 	void	*win;
 	int		x;
 	int		y;
-	int		is_down;
+	int		is_left_down;
+	int		is_right_down;
 	t_rt	rt;
 	t_img	img;
 }	t_env;
@@ -120,6 +121,7 @@ void		view_transform(t_object *obj, t_cam cam);
 
 /* rotate_cam */
 void		rotate_x(t_vec3 *dir, double theta);
+// void		rotate(t_vec3 *to_rotate, t_vec3 standard_axis, double theta);
 void		rotate_y(t_vec3 *dir, double theta);
 void		rotate_z(t_vec3 *dir, double theta);
 
@@ -138,5 +140,7 @@ t_vec3		screen2view(t_cam cam, int x, int y);
 void		render_world(t_env env);
 
 void	init_cam_metrix(t_vec3 (*metrix)[3], double p, double t);
+
+void set_cam_axis(t_cam *cam);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:27:23 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 17:04:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/03 14:05:05 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,28 @@ void	init_cam_metrix(t_vec3 (*metrix)[3], double p, double t)
 			sin(t));
 }
 
+void set_cam_axis(t_cam *cam)
+{
+	t_vec3 vup;
+
+	printf("dir y %f\n", cam->dir.y);
+	vup = set_vec3(0, 1, 0);
+	if ((cam->dir.y != 0.0) && (cam->dir.x == 0 && cam->dir.z == 0))
+		vup = set_vec3(0, 0, 1);
+	cam->axis[2] = unit_vec3(cam->dir);
+	cam->axis[0] = unit_vec3(cross_vec3(vup, cam->axis[2]));
+	cam->axis[1] = unit_vec3(cross_vec3(cam->axis[2], cam->axis[0]));
+}
+
 void	set_camera(char **args, t_cam *cam)
 {
-	t_vec3	vup;
-
 	set_point(args[1], &cam->point);
 	set_dir(args[2], &cam->dir);
 	cam->view_angle = ft_atoi(args[3]) / 2.0;
 	cam->fov = tan(cam->view_angle * (M_PI / 180.0));
-	vup = set_vec3(0, 1, 0);
-	if ((cam->dir.y != 0.0) && (cam->dir.x == 0 && cam->dir.z == 0))
-		vup = set_vec3(0, 0, 1);
-	// init_cam_metrix(&cam->axis, 0, 0);
-	cam->axis[2] = unit_vec3(cam->dir);
-	cam->axis[0] = unit_vec3(cross_vec3(vup, cam->axis[2]));
-	cam->axis[1] = unit_vec3(cross_vec3(cam->axis[2], cam->axis[0]));
+	set_cam_axis(cam);
 	// cam->ori_axis[0] = cam->axis[0];
 	// cam->ori_axis[1] = cam->axis[1];
 	// cam->ori_axis[2] = cam->axis[2];
 	cam->ratio = (double)(WIDTH) / HEIGHT;
-
 }

@@ -46,7 +46,7 @@ $(NAME):	$(OBJ)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
-	@$(RM) ./$(LIBDIR)mlx/*.o
+	@$(MAKE) -C ./$(LIBDIR)/mlx clean
 	@$(RM) ./$(LIBDIR)/libft/*.o
 	@$(RM) ./$(LIBDIR)/get_next_line/*.o
 	@echo $(GREEN)"lib cleaned" $(EOC)

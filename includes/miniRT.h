@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/03 16:57:40 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/04 12:42:04 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,12 @@ int			split_len(char **p);
 void		view_transform(t_object *obj, t_cam cam);
 
 /* rotate_cam */
-void		rotate_x(t_vec3 *dir, double theta);
-// void		rotate(t_vec3 *to_rotate, t_vec3 standard_axis, double theta);
-void		rotate_y(t_vec3 *dir, double theta);
-void		rotate_z(t_vec3 *dir, double theta);
+// void		rotate_x(t_vec3 *dir, double theta);
+// void		rotate_y(t_vec3 *dir, double theta);
+// void		rotate_z(t_vec3 *dir, double theta);
+
+void	rotate_x(t_vec3 *y, t_vec3 *z, double theta);
+void	rotate_y(t_vec3 *x, t_vec3 *z, double theta);
 
 int			translate_cam(int keycode, t_env *env);
 

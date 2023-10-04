@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 12:42:04 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:45:01 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@
 # define WIDTH	1280
 # define HEIGHT	720
 
-# define ON_KEYDOWN 2
-# define ON_MOUSEMOVE 6
-# define ON_MOUSEDOWN 4
-#define ON_MOUSEUP 5
-
-// typedef t_vec3	t_light;
+# define ON_KEYDOWN		2
+# define ON_MOUSEMOVE	6
+# define ON_MOUSEDOWN	4
+# define ON_MOUSEUP		5
 
 typedef struct s_img
 {
@@ -53,7 +51,6 @@ typedef struct s_cam
 {
 	t_vec3	point;
 	t_vec3	dir;
-	t_vec3	ori_axis[3];
 	t_vec3	axis[3];
 	double	view_angle;
 	double	fov;
@@ -79,7 +76,6 @@ typedef struct s_rt
 	t_light		light;
 	t_object	*objs;
 }	t_rt;
-
 
 typedef struct s_env
 {
@@ -114,18 +110,15 @@ void		set_light(char **args, t_light *light);
 void		set_sphere(char **args, t_object *obj, t_rt *rt);
 void		set_plane(char **args, t_object *obj, t_rt *rt);
 void		set_cylinder(char **args, t_object *obj, t_rt *rt);
+void		set_cam_axis(t_cam *cam);
 int			split_len(char **p);
 
 /* view transform */
 void		view_transform(t_object *obj, t_cam cam);
 
 /* rotate_cam */
-// void		rotate_x(t_vec3 *dir, double theta);
-// void		rotate_y(t_vec3 *dir, double theta);
-// void		rotate_z(t_vec3 *dir, double theta);
-
-void	rotate_x(t_vec3 *y, t_vec3 *z, double theta);
-void	rotate_y(t_vec3 *x, t_vec3 *z, double theta);
+void		rotate_x(t_vec3 *y, t_vec3 *z, double theta);
+void		rotate_y(t_vec3 *x, t_vec3 *z, double theta);
 
 int			translate_cam(int keycode, t_env *env);
 
@@ -140,9 +133,5 @@ int			close_win(t_env *env);
 void		put_pixel(t_img *data, int x, int y, int color);
 t_vec3		screen2view(t_cam cam, int x, int y);
 void		render_world(t_env env);
-
-void	init_cam_metrix(t_vec3 (*metrix)[3], double p, double t);
-
-void set_cam_axis(t_cam *cam);
 
 #endif

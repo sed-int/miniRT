@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:49:47 by phan              #+#    #+#             */
-/*   Updated: 2023/09/19 16:28:36 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/04 20:27:59 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef struct s_ray
 {
-	t_vec3	start; // ray의 시작 위치
-	t_vec3	dir;	  // ray의 방향 벡터 (unit vector)
+	t_vec3	start;
+	t_vec3	dir;
 }	t_ray;
 
 #endif

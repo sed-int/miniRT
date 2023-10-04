@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 12:17:15 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 16:48:09 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:32:21 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_vec3	screen2view(t_cam cam, int x, int y)
 	cam.left_top = add_vec3(cam.axis[2], cam.left_top);
 	cam.change_x = div_vec3(cam.x_axis, WIDTH);
 	cam.change_y = div_vec3(cam.y_axis, HEIGHT);
-	// cam.left_top = add_vec3(cam.left_top, scale_vec3(cam.change_x, 0.5));
-	// cam.left_top = add_vec3(cam.left_top, scale_vec3(cam.change_y, -0.5));
 	exchange_point = add_vec3(cam.left_top, scale_vec3(cam.change_x, x));
 	exchange_point = add_vec3(exchange_point, scale_vec3(cam.change_y, -1 * y));
 	return (exchange_point);
@@ -57,7 +55,6 @@ void	render_world(t_env env)
 			ray.start = scale_vec3(ray.start, 0);
 			put_pixel(&env.img, x, y, \
 				trace_ray(ray, env.rt.objs, env.rt.light, env.rt.amb));
-
 			x++;
 		}
 		y++;

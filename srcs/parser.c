@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/09/26 13:19:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:32:49 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ int	check_type(char *type, int *count)
 	else if (!ft_strcmp(type, "cy"))
 		ret = CYLINDER;
 	else
-	{
-		printf("asdf\n");
 		exit(1);
-	}
 	return (ret);
 }
 
@@ -79,7 +76,6 @@ void	parse_input(char *filename, void *env)
 	init_count(count);
 	fd = open(filename, O_RDONLY);
 	(void)env;
-	printf("parse\n");
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -92,5 +88,4 @@ void	parse_input(char *filename, void *env)
 		type = check_type(splitted[0], count);
 		set_value(type, splitted, env);
 	}
-	printf("ok\n");
 }

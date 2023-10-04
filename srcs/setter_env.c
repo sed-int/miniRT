@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:27:23 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/03 14:05:05 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/04 20:38:56 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	init_cam_metrix(t_vec3 (*metrix)[3], double p, double t)
 			sin(t));
 }
 
-void set_cam_axis(t_cam *cam)
+void	set_cam_axis(t_cam *cam)
 {
-	t_vec3 vup;
+	t_vec3	vup;
 
-	printf("dir y %f\n", cam->dir.y);
 	vup = set_vec3(0, 1, 0);
 	if ((cam->dir.y != 0.0) && (cam->dir.x == 0 && cam->dir.z == 0))
 		vup = set_vec3(0, 0, 1);
@@ -61,8 +60,5 @@ void	set_camera(char **args, t_cam *cam)
 	cam->view_angle = ft_atoi(args[3]) / 2.0;
 	cam->fov = tan(cam->view_angle * (M_PI / 180.0));
 	set_cam_axis(cam);
-	// cam->ori_axis[0] = cam->axis[0];
-	// cam->ori_axis[1] = cam->axis[1];
-	// cam->ori_axis[2] = cam->axis[2];
 	cam->ratio = (double)(WIDTH) / HEIGHT;
 }

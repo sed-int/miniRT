@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/03 16:57:55 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/04 20:31:49 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	main(int ac, char **av)
 	mlx_hook(env.win, ON_MOUSEUP, 1L << 0, mouse_up_hook, &env);
 	mlx_hook(env.win, ON_MOUSEMOVE, 1L << 0, mouse_move_hook, &env);
 	mlx_hook(env.win, 17, 1L << 5, close_win, &env);
-
 	mlx_loop(env.mlx);
 }

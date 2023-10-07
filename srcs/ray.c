@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 15:16:44 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 15:38:14 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit)
 	if (shadow_hit.d > 0.0)
 	{
 		obj->diffuse = scale_vec3(obj->diffuse, 0.0);
-		return (set_vec3(0,0,0));
+		return (set_vec3(0, 0, 0));
 	}
 	diff = dot_vec3(dir2light, hit.normal);
 	diff = (diff >= 0.0) * diff;

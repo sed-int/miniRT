@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collison_pl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:05 by phan              #+#    #+#             */
-/*   Updated: 2023/09/26 13:12:35 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/07 14:58:50 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static int	check_ray_plane(t_ray ray, t_plane plane, t_vec3 *point, double *t)
 		return (0);
 	if (fabs(dot_vec3(plane.normal, ray.dir)) < 1e-2)
 		return (0);
-	*t = (dot_vec3(plane.normal, ray.start) \
-		- dot_vec3(plane.point, plane.normal)) \
+	*t = (dot_vec3(plane.point, plane.normal) \
+		- dot_vec3(plane.normal, ray.start)) \
 		/ dot_vec3(ray.dir, plane.normal);
 	if (*t < 0.0)
 		return (0);

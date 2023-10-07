@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 13:44:12 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 15:16:44 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,21 @@ static unsigned int	get_rgb(int r, int g, int b)
 
 t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit)
 {
+	t_ray		shadow_ray;
 	t_vec3		dir2light;
 	t_vec3		reflected_dir;
 	double		diff;
+	t_hit		shadow_hit;
 
 	dir2light = unit_vec3(sub_vec3(light.point, hit.point));
+	shadow_ray.start = add_vec3(hit.point, scale_vec3(dir2light, 0.0001));
+	shadow_ray.dir = dir2light;
+	shadow_hit = find_closest_collisun(shadow_ray, obj);
+	if (shadow_hit.d > 0.0)
+	{
+		obj->diffuse = scale_vec3(obj->diffuse, 0.0);
+		return (set_vec3(0,0,0));
+	}
 	diff = dot_vec3(dir2light, hit.normal);
 	diff = (diff >= 0.0) * diff;
 	obj->diffuse = scale_vec3(obj->diffuse, diff);

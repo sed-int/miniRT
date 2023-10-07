@@ -21,7 +21,7 @@ SRC			= main.c vec3.c vec3_2.c render_world.c \
 			ray.c parser.c parser_utils.c \
 			setter.c setter_utils.c setter_object.c setter_env.c \
 			view_transformer.c event.c \
-			translate_cam.c rotate_cam.c
+			translate_cam.c rotate_cam.c collison_cy_utils.c 
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			= $(SRC:.c=.o)
 

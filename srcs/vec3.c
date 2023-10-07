@@ -6,18 +6,12 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:05:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 20:39:30 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 12:06:51 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec3.h"
-#include <stdio.h>
 #include <math.h>
-
-void	print_vec3(t_vec3 v)
-{
-	printf("%lf %lf %lf\n", v.x, v.y, v.z);
-}
 
 double	sqrlen_vec3(t_vec3 v)
 {

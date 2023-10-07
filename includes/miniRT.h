@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 20:45:01 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 13:55:15 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "key.h"
+# include "mouse.h"
 
 # define WIDTH	1280
 # define HEIGHT	720
-
-# define ON_KEYDOWN		2
-# define ON_MOUSEMOVE	6
-# define ON_MOUSEDOWN	4
-# define ON_MOUSEUP		5
 
 typedef struct s_img
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 12:08:59 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 12:11:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/07 14:00:56 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	set_dir(char *arg, t_vec3 *dir)
 		dir->y > 1 || dir->y < -1 || \
 		dir->z > 1 || dir->z < -1)
 		exit(1);
+	free_split(splitted);
 }
 
 void	set_ratio(char *arg, double	*ratio)

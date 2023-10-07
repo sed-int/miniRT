@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/07 13:55:15 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 13:59:32 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void		parse_input(char *filename, void *env);
 void		set_value(int type, char **args, t_rt *rt);
 t_object	*new_obj(void);
 void		obj_lstadd_back(t_object **lst, t_object *new);
+void	free_split(char **split_line);
 
 /* setter */
 void		set_dir(char *arg, t_vec3 *dir);

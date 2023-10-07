@@ -39,7 +39,7 @@ $(NAME):	$(OBJ)
 	@$(MAKE) -C ./$(LIBDIR)/get_next_line
 	@$(MAKE) -C ./$(LIBDIR)/libft
 	@echo $(GREEN)"mlx made" $(EOC)
-	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME) -fsanitize=address -g3
+	@$(CC) $(LIBFLAGS) $(OBJ) -o $(NAME)
 	@echo $(GREEN)"miniRT made" $(EOC)
 
 %.o: 		%.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:50:22 by phan              #+#    #+#             */
-/*   Updated: 2023/09/26 13:11:16 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/07 13:59:13 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ void	obj_lstadd_back(t_object **lst, t_object *new)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+}
+
+void	free_split(char **split_line)
+{
+	int	idx;
+
+	idx = 0;
+	while (split_line[idx])
+		free(split_line[idx++]);
+	free(split_line);
 }

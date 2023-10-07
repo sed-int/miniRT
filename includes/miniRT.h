@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 20:45:01 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 13:59:32 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,10 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "key.h"
+# include "mouse.h"
 
 # define WIDTH	1280
 # define HEIGHT	720
-
-# define ON_KEYDOWN		2
-# define ON_MOUSEMOVE	6
-# define ON_MOUSEDOWN	4
-# define ON_MOUSEUP		5
 
 typedef struct s_img
 {
@@ -96,6 +92,7 @@ void		parse_input(char *filename, void *env);
 void		set_value(int type, char **args, t_rt *rt);
 t_object	*new_obj(void);
 void		obj_lstadd_back(t_object **lst, t_object *new);
+void	free_split(char **split_line);
 
 /* setter */
 void		set_dir(char *arg, t_vec3 *dir);

@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 20:32:49 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 14:06:18 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	check_filename(char *filename)
 		exit(1);
 	if (ft_strcmp(splitted[1], "rt"))
 		exit(1);
+	free_split(splitted);
 }
 
 void	parse_input(char *filename, void *env)
@@ -83,9 +84,11 @@ void	parse_input(char *filename, void *env)
 			break ;
 		nl_to_null(line);
 		splitted = ft_split(line, ' ');
+		free(line);
 		if (!*splitted)
 			continue ;
 		type = check_type(splitted[0], count);
 		set_value(type, splitted, env);
+		free_split(splitted);
 	}
 }

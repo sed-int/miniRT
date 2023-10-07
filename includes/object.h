@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/10/01 13:22:57 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/07 11:57:25 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ typedef struct s_cylinder
 	double	height;
 }	t_cylinder;
 
+typedef struct s_obj_exp_var
+{
+	double	a;
+	double	b;
+	double	c;
+	double	nabla;
+	double	vdot;
+	t_vec3	vsub;
+}	t_obj_exp_var;
+
 typedef struct s_object
 {
 	enum e_type		type;
@@ -72,4 +82,9 @@ t_hit	check_ray_collison_plane(t_ray ray, t_object obj);
 // cylinder
 t_hit	check_ray_collison_cylinder(t_ray ray, t_object obj);
 
+/* collison cy utils */
+int		is_over_cylinder_range(double h, double max);
+double	get_side_distance(double a, double b, double nabla);
+double	get_base_distance(t_ray ray, t_cylinder cy, double *d1, double *d2);
+void	init_cy_exp_var(t_ray ray, t_cylinder cy, t_obj_exp_var *var);
 #endif

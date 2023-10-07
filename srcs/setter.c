@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:03:02 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/02 13:25:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/07 14:00:45 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	set_color(char *arg, t_vec3 *color)
 		|| color->g > 255 || color->g < 0 \
 		|| color->b > 255 || color->b < 0)
 		exit(1);
+	free_split(splitted);
 }
 
 void	set_point(char *arg, t_vec3 *point)
@@ -38,6 +39,7 @@ void	set_point(char *arg, t_vec3 *point)
 	point->x = atof(splitted[0]);
 	point->y = atof(splitted[1]);
 	point->z = atof(splitted[2]);
+	free_split(splitted);
 }
 
 void	set_value(int type, char **args, t_rt *rt)

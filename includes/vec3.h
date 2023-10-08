@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:43:52 by phan              #+#    #+#             */
-/*   Updated: 2023/09/16 18:54:38 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 13:51:02 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_vec3
 }	t_vec3;
 
 /* vec3 */
-void	print_vec3(t_vec3 v);
 double	sqrlen_vec3(t_vec3 v);
 double	len_vec3(t_vec3 v);
 t_vec3	add_vec3(t_vec3 u, t_vec3 v);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 15:38:14 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 13:36:41 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static t_hit	find_closest_collisun(t_ray ray, t_object *objects)
+static t_hit	find_closest_collison(t_ray ray, t_object *objects)
 {
 	double	closest_d;
 	t_hit	closest_hit;
@@ -56,7 +56,7 @@ t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit)
 	dir2light = unit_vec3(sub_vec3(light.point, hit.point));
 	shadow_ray.start = add_vec3(hit.point, scale_vec3(dir2light, 0.0001));
 	shadow_ray.dir = dir2light;
-	shadow_hit = find_closest_collisun(shadow_ray, obj);
+	shadow_hit = find_closest_collison(shadow_ray, obj);
 	if (shadow_hit.d > 0.0)
 	{
 		obj->diffuse = scale_vec3(obj->diffuse, 0.0);
@@ -78,7 +78,7 @@ int	trace_ray(t_ray ray, t_object *objects, t_light light, t_amb amb)
 	t_vec3		reflected_dir;
 	double		spec;
 
-	hit = find_closest_collisun(ray, objects);
+	hit = find_closest_collison(ray, objects);
 	if (hit.d < 0)
 		return (\
 			get_rgb(\

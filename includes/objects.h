@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.h                                           :+:      :+:    :+:   */
+/*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:46:36 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 11:57:25 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 14:07:11 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECT_H
-# define OBJECT_H
+#ifndef OBJECTS_H
+# define OBJECTS_H
 
 # include "vec3.h"
 # include "hit.h"
 # include "ray.h"
-
 
 enum	e_type
 {
@@ -87,4 +86,5 @@ int		is_over_cylinder_range(double h, double max);
 double	get_side_distance(double a, double b, double nabla);
 double	get_base_distance(t_ray ray, t_cylinder cy, double *d1, double *d2);
 void	init_cy_exp_var(t_ray ray, t_cylinder cy, t_obj_exp_var *var);
+
 #endif

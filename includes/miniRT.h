@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/07 13:59:32 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 13:50:52 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
-# include "object.h"
+# include "objects.h"
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
@@ -92,7 +92,7 @@ void		parse_input(char *filename, void *env);
 void		set_value(int type, char **args, t_rt *rt);
 t_object	*new_obj(void);
 void		obj_lstadd_back(t_object **lst, t_object *new);
-void	free_split(char **split_line);
+void		free_split(char **split_line);
 
 /* setter */
 void		set_dir(char *arg, t_vec3 *dir);
@@ -109,6 +109,7 @@ void		set_plane(char **args, t_object *obj, t_rt *rt);
 void		set_cylinder(char **args, t_object *obj, t_rt *rt);
 void		set_cam_axis(t_cam *cam);
 int			split_len(char **p);
+void		check_validity(char *msg);
 
 /* view transform */
 void		view_transform(t_object *obj, t_cam cam);

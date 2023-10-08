@@ -3,25 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:18:45 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/07 14:50:57 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 13:10:43 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	check_leaks()
-{
-	system("leaks miniRT");
-}
-
 int	main(int ac, char **av)
 {
 	t_env	env;
 
-	// atexit(check_leaks);
 	if (ac != 2)
 	{
 		write(1, "Error: Check your number of argument\n", 38);

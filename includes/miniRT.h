@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/08 13:50:52 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/08 14:27:39 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void		set_value(int type, char **args, t_rt *rt);
 t_object	*new_obj(void);
 void		obj_lstadd_back(t_object **lst, t_object *new);
 void		free_split(char **split_line);
+int			check_file(char *filename);
+void		check_count(int *count);
 
 /* setter */
 void		set_dir(char *arg, t_vec3 *dir);

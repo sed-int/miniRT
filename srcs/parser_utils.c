@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:50:22 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 13:59:13 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 14:31:31 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,37 @@ void	free_split(char **split_line)
 	while (split_line[idx])
 		free(split_line[idx++]);
 	free(split_line);
+}
+
+void	check_count(int *count)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (count[i++] == 0)
+			check_validity("Missing element(s)!");
+	}
+}
+
+int	check_file(char *filename)
+{
+	int		fd;
+	int		len;
+	char	**splitted;
+
+	splitted = ft_split(filename, '.');
+	len = 0;
+	while (splitted[len])
+		len++;
+	if (len != 2)
+		check_validity("Wrong file name!");
+	if (ft_strcmp(splitted[1], "rt"))
+		check_validity("Wrong file name!");
+	free_split(splitted);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		check_validity("File open error!");
+	return (fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:23:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/07 14:06:18 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 14:30:31 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,6 @@ void	nl_to_null(char *line)
 		*nl = '\0';
 }
 
-void	check_filename(char *filename)
-{
-	int		len;
-	char	**splitted;
-
-	splitted = ft_split(filename, '.');
-	len = 0;
-	while (splitted[len])
-		len++;
-	if (len != 2)
-		exit(1);
-	if (ft_strcmp(splitted[1], "rt"))
-		exit(1);
-	free_split(splitted);
-}
-
 void	parse_input(char *filename, void *env)
 {
 	int		fd;
@@ -73,10 +57,8 @@ void	parse_input(char *filename, void *env)
 	int		count[3];
 	int		type;
 
-	check_filename(filename);
 	init_count(count);
-	fd = open(filename, O_RDONLY);
-	(void)env;
+	fd = check_file(filename);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -91,4 +73,5 @@ void	parse_input(char *filename, void *env)
 		set_value(type, splitted, env);
 		free_split(splitted);
 	}
+	check_count(count);
 }

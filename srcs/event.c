@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 11:59:40 by phan              #+#    #+#             */
-/*   Updated: 2023/10/04 20:33:25 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/08 14:32:17 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	mouse_move_hook(int x, int y, t_env *env)
 {
 	double	theta;
 
-	(void)x;
-	(void)y;
 	theta = 0.0001;
 	if (env->is_left_down)
 	{

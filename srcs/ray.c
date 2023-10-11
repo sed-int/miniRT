@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:03:37 by phan              #+#    #+#             */
-/*   Updated: 2023/10/08 13:36:41 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:17:11 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static unsigned int	get_rgb(int r, int g, int b)
 	return (0x00 << 24 | r << 16 | g << 8 | b);
 }
 
-t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit)
+t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit, t_object *obj_lst)
 {
 	t_ray		shadow_ray;
 	t_vec3		dir2light;
@@ -56,7 +56,7 @@ t_vec3	set_diffuse(t_object *obj, t_light light, t_hit hit)
 	dir2light = unit_vec3(sub_vec3(light.point, hit.point));
 	shadow_ray.start = add_vec3(hit.point, scale_vec3(dir2light, 0.0001));
 	shadow_ray.dir = dir2light;
-	shadow_hit = find_closest_collison(shadow_ray, obj);
+	shadow_hit = find_closest_collison(shadow_ray, obj_lst);
 	if (shadow_hit.d > 0.0)
 	{
 		obj->diffuse = scale_vec3(obj->diffuse, 0.0);
@@ -87,7 +87,7 @@ int	trace_ray(t_ray ray, t_object *objects, t_light light, t_amb amb)
 				amb.color.b * amb.ratio) \
 			);
 	obj = *(hit.obj);
-	reflected_dir = set_diffuse(&obj, light, hit);
+	reflected_dir = set_diffuse(&obj, light, hit, objects);
 	spec = dot_vec3(scale_vec3(ray.dir, -1.0), reflected_dir);
 	spec = (spec >= 0.0) * spec;
 	spec = powf(spec, 9.0);

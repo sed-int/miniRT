@@ -6,7 +6,7 @@
 /*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:03 by phan              #+#    #+#             */
-/*   Updated: 2023/10/07 13:48:48 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/11 14:22:35 by phan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_ray_cylinder_base_plane(t_ray ray, t_cylinder cy, t_hit *hit)
 		cy.normal, \
 		dot_vec3(sub_vec3(hit->point, cy.center), cy.normal) \
 	));
-	if (dot_vec3(in_base_plnae, in_base_plnae) > pow(cy.diameter / 2, 2.0))
+	if (dot_vec3(in_base_plnae, in_base_plnae) > pow(cy.diameter / 2.0, 2.0))
 		return (0);
 	if (hit->d == d1)
 		hit->normal = cy.normal;

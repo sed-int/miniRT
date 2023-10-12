@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_world.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 12:17:15 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/04 20:32:21 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/12 18:37:19 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	render_world(t_env env)
 	int		y;
 
 	ft_memset(env.img.addr, 0, WIDTH * HEIGHT * (env.img.bits_per_pixel / 8));
-	view_transform(env.rt.objs, env.rt.cam);
+	view_transform(&env.rt.light, env.rt.objs, env.rt.cam);
 	y = 0;
 	while (y < HEIGHT)
 	{

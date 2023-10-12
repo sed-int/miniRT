@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/12 13:51:31 by hyunminjo        ###   ########.fr       */
+/*   Updated: 2023/10/12 18:45:03 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			split_len(char **p);
 void		check_validity(char *msg);
 
 /* view transform */
-void		view_transform(t_object *obj, t_cam cam);
+void		view_transform(t_light *light, t_object *obj, t_cam cam);
 
 /* rotate_cam */
 void		rotate_x(t_vec3 *y, t_vec3 *z, double theta);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:57:07 by hcho2             #+#    #+#             */
-/*   Updated: 2023/10/08 14:27:39 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/10/12 13:51:31 by hyunminjo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void		view_transform(t_object *obj, t_cam cam);
 /* rotate_cam */
 void		rotate_x(t_vec3 *y, t_vec3 *z, double theta);
 void		rotate_y(t_vec3 *x, t_vec3 *z, double theta);
-
+int			rotate_cam(int keycode, t_env *env);
 int			translate_cam(int keycode, t_env *env);
 
 /* key hook */

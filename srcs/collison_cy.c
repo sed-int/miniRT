@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collison_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phan <phan@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:15:03 by phan              #+#    #+#             */
-/*   Updated: 2023/10/11 14:22:35 by phan             ###   ########.fr       */
+/*   Updated: 2023/10/12 13:44:31 by hyunminjo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_ray_cylinder_side(t_ray ray, t_cylinder cy, t_hit *hit)
 
 int	check_ray_cylinder_base_plane(t_ray ray, t_cylinder cy, t_hit *hit)
 {
-	t_vec3	in_base_plnae;
+	t_vec3	in_base_plane;
 	double	d1;
 	double	d2;
 
@@ -46,13 +46,13 @@ int	check_ray_cylinder_base_plane(t_ray ray, t_cylinder cy, t_hit *hit)
 	if (hit->d < 0.0)
 		return (0);
 	hit->point = add_vec3(ray.start, scale_vec3(ray.dir, hit->d));
-	in_base_plnae = sub_vec3(\
+	in_base_plane = sub_vec3(\
 		sub_vec3(hit->point, cy.center), \
 		scale_vec3(\
 		cy.normal, \
 		dot_vec3(sub_vec3(hit->point, cy.center), cy.normal) \
 	));
-	if (dot_vec3(in_base_plnae, in_base_plnae) > pow(cy.diameter / 2.0, 2.0))
+	if (dot_vec3(in_base_plane, in_base_plane) > pow(cy.diameter / 2.0, 2.0))
 		return (0);
 	if (hit->d == d1)
 		hit->normal = cy.normal;
